@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css" />
     <title>weather-app</title>
   </head>
   <body>
@@ -74,7 +75,7 @@
               class="search-panel__input"
               placeholder="Search City..."
               aria-label="Search City"
-              value="Phmon Penh"
+              value="Phnom Penh"
             />
             <button class="search-panel__btn-clear" aria-label="Clear search">
               <i data-lucide="circle-x"></i>
@@ -85,11 +86,15 @@
 
       <section id="current-weather" class="current-weather">
         <div class="current-weather__info">
-          <p class="current-weather__temperature">32 <sup>°C</sup></p>
+          <p class="current-weather__temperature">32<sup>°C</sup></p>
           <h2 class="current-weather__status">Partly Cloudy</h2>
         </div>
         <div class="current-weather__visual">
-          <img src="/cloudy.png" alt="Partly Cloudy Visual" class="current-weather__img" />
+          <img
+            src="/cloudy.png"
+            alt="Partly Cloudy Visual"
+            class="current-weather__img"
+          />
         </div>
       </section>
 
@@ -126,7 +131,7 @@
                 class="weather-details__icon"
                 aria-hidden="true"
               ></i>
-              <span>35<sup>°C</sup></span>
+              <span>35°C</span>
             </dd>
             <dt class="weather-details__label">Feels like</dt>
           </div>
@@ -178,7 +183,7 @@
       <a href="#favorites" class="bottom-nav__item" aria-label="Favorites">
         <i data-lucide="star"></i>
       </a>
-      <a href="#history" class="bottom-nav__item" aria-label="Histrory">
+      <a href="#histrory" class="bottom-nav__item" aria-label="Histrory">
         <i data-lucide="clock"></i>
       </a>
       <a href="#settings" class="bottom-nav__item" aria-label="Settings">
@@ -186,7 +191,7 @@
       </a>
     </nav>
 
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="./src/main.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
