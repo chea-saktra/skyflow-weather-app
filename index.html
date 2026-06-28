@@ -10,30 +10,34 @@
   <body>
     <aside class="side-menu">
       <nav class="side-menu__nav">
-        <a href="/home" class="side-menu__logo-link"
-          ><img src="/Logo.png" alt="Weather App Logo" class="side-menu__logo"
-        /></a>
-        <ul class="side-menu__list ">
+        <a href="/#home" class="side-menu__logo-link">
+          <img src="/Logo.png" alt="Weather App Logo" class="side-menu__logo" />
+          <span class="side-menu__logo-text">Weather</span>
+        </a>
+        <ul class="side-menu__list">
           <li class="side-menu__item">
             <a href="#home" class="side-menu__link is-active">
-              <i class="side-menu__icon" data-lucide="home"></i> Home</a
-            >
+              <i class="side-menu__icon" data-lucide="home"></i>
+              Home
+            </a>
           </li>
           <li class="side-menu__item">
-            <a href="#favorites" class="side-menu__link"
-              ><i class="side-menu__icon" data-lucide="star"></i> Favorites</a
-            >
+            <a href="#favorites" class="side-menu__link">
+              <i class="side-menu__icon" data-lucide="star"></i>
+              Favorites
+            </a>
           </li>
           <li class="side-menu__item">
-            <a href="#history" class="side-menu__link"
-              ><i class="side-menu__icon" data-lucide="clock"></i> History</a
-            >
+            <a href="#history" class="side-menu__link">
+              <i class="side-menu__icon" data-lucide="clock"></i>
+              History
+            </a>
           </li>
           <li class="side-menu__item">
-            <a href="#settings" class="side-menu__link"
-              ><i class="side-menu__icon" data-lucide="settings"></i>
-              Settings</a
-            >
+            <a href="#settings" class="side-menu__link">
+              <i class="side-menu__icon" data-lucide="settings"></i>
+              Settings
+            </a>
           </li>
         </ul>
       </nav>
@@ -44,41 +48,26 @@
 
     <main>
       <header class="mobile-header">
-        <button
-          id="menu-toggle"
-          class="mobile-header__btn"
-          aria-label="Open Menu"
-        >
+        <button id="menu-toggle" class="mobile-header__btn" aria-label="Open Menu">
           <i data-lucide="menu"></i>
         </button>
         <h1 class="mobile-header__location">
-          Phnom Penh <i data-lucide="map-pin"></i>
+          Phnom Penh
+          <i data-lucide="map-pin"></i>
         </h1>
-        <button
-          id="fav-toggle"
-          class="mobile-header__btn"
-          aria-label="Add to Favorites"
-        >
+        <button id="fav-toggle" class="mobile-header__btn" aria-label="Add to Favorites">
           <i data-lucide="star"></i>
         </button>
       </header>
 
       <section class="search-panel">
         <form class="search-panel__form" role="search" onsubmit="return false;">
-          <button
-            type="button"
-            class="search-panel__btn-back"
-            aria-label="Go back"
-          >
+          <button type="button" class="search-panel__btn-back" aria-label="Go back">
             <i data-lucide="arrow-left"></i>
           </button>
 
           <div class="search-panel__input-wrapper">
-            <i
-              data-lucide="search"
-              class="search-panel__search-icon"
-              aria-hidden="true"
-            ></i>
+            <i data-lucide="search" class="search-panel__search-icon" aria-hidden="true"></i>
 
             <input
               type="search"
@@ -87,8 +76,7 @@
               class="search-panel__input"
               placeholder="Search City..."
               aria-label="Search City"
-              value="Phnom Penh"
-            />
+              value="Phnom Penh" />
             <button class="search-panel__btn-clear" aria-label="Clear search">
               <i data-lucide="circle-x"></i>
             </button>
@@ -98,15 +86,17 @@
 
       <section class="current-weather">
         <div class="current-weather__info">
-          <p class="current-weather__temperature">32<sup>°C</sup></p>
+          <p class="current-weather__temperature">
+            32
+            <sup>°C</sup>
+          </p>
           <h2 class="current-weather__status">Partly Cloudy</h2>
         </div>
         <div class="current-weather__visual">
           <img
             src="./src/assets/weather-icons/Partly Cloudy.png"
             alt="Partly Cloudy Visual"
-            class="current-weather__img"
-          />
+            class="current-weather__img" />
         </div>
       </section>
 
@@ -124,11 +114,8 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="weather-details__icon"
-              >
-                <path
-                  d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"
-                />
+                class="weather-details__icon">
+                <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z" />
               </svg>
               <span>68%</span>
             </dd>
@@ -147,8 +134,7 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="weather-details__icon"
-              >
+                class="weather-details__icon">
                 <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
                 <path d="M17.5 13a2.5 2.5 0 1 0-2.5-2.5H2" />
                 <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
@@ -170,8 +156,7 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="weather-details__icon"
-              >
+                class="weather-details__icon">
                 <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" />
               </svg>
               <span>35°C</span>
@@ -186,26 +171,18 @@
           <li class="forecast__item">
             <time datetime="2026-06-27" class="forecast__day">Fri 27</time>
             <div class="forecast__icon-wrapper">
-              <i
-                data-lucide="cloud-rain"
-                class="forecast__icon"
-                aria-hidden="true"
-              ></i>
+              <i data-lucide="cloud-rain" class="forecast__icon" aria-hidden="true"></i>
             </div>
             <div class="forecast__temps">
-              <span class="forecast__temp forecast__temp--max">31°</span
-              ><span class="forecast__temp forecast__temp--min">24°</span>
+              <span class="forecast__temp forecast__temp--max">31°</span>
+              <span class="forecast__temp forecast__temp--min">24°</span>
             </div>
           </li>
 
           <li class="forecast__item">
             <time datetime="2026-06-28" class="forecast__day">Sat 28</time>
             <div class="forecast__icon-wrapper">
-              <i
-                data-lucide="sun"
-                class="forecast__icon"
-                aria-hidden="true"
-              ></i>
+              <i data-lucide="sun" class="forecast__icon" aria-hidden="true"></i>
             </div>
             <div class="forecast__temps">
               <span class="forecast__temp forecast__temp--max">33°</span>
@@ -215,59 +192,38 @@
         </ul>
       </section>
 
-      <section
-        class="favorites-panel is-hidden"
-        aria-labelledby="favorites-title"
-      >
-        <h2 id="favorites-title" class="favorites-panel__title">
-          Favorites List
-        </h2>
+      <section class="favorites-panel is-hidden" aria-labelledby="favorites-title">
+        <h2 id="favorites-title" class="favorites-panel__title">Favorites List</h2>
 
         <ul class="favorites-panel__list">
           <li class="favorites-panel__card">
-            <button
-              class="favorites-panel__btn"
-              aria-label="View weather for Phnom penh"
-            >
+            <button class="favorites-panel__btn" aria-label="View weather for Phnom penh">
               <div class="favorites-panel__info">
                 <img
                   src="/src/assets/weather-icons/Partly Cloudy.png"
                   alt="Partly cloudy"
-                  class="favorites-panel__icon"
-                />
-                <span class="favorites-panel__city">Phnom Penh </span>
+                  class="favorites-panel__icon" />
+                <span class="favorites-panel__city">Phnom Penh</span>
               </div>
               <span class="favorites-panel__temp">32°C</span>
             </button>
           </li>
 
           <li class="favorites-panel__card">
-            <button
-              class="favorites-panel__btn"
-              aria-label="View weather for Tokyo"
-            >
+            <button class="favorites-panel__btn" aria-label="View weather for Tokyo">
               <div class="favorites-panel__info">
-                <img
-                  src="/src/assets/weather-icons/Cloudy.png"
-                  alt="Cloudy"
-                  class="favorites-panel__icon"
-                /><span class="favorites-panel__city">Tokyo</span>
+                <img src="/src/assets/weather-icons/Cloudy.png" alt="Cloudy" class="favorites-panel__icon" />
+                <span class="favorites-panel__city">Tokyo</span>
               </div>
               <span class="favorites-panel__temp">24°C</span>
             </button>
           </li>
 
           <li class="favorites-panel__card">
-            <button
-              class="favorites-panel__btn"
-              aria-label="View weather for New York"
-            >
+            <button class="favorites-panel__btn" aria-label="View weather for New York">
               <div class="favorites-panel__info">
-                <img
-                  src="/src/assets/weather-icons/Sunny.png"
-                  alt="Sunny"
-                  class="favorites-panel__icon"
-                /><span class="favorites-panel__city">New York</span>
+                <img src="/src/assets/weather-icons/Sunny.png" alt="Sunny" class="favorites-panel__icon" />
+                <span class="favorites-panel__city">New York</span>
               </div>
               <span class="favorites-panel__temp">18°C</span>
             </button>

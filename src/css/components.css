@@ -352,11 +352,21 @@
 .side-menu__logo-link {
   display: flex;
   align-items: center;
-  padding-left: 0.75rem;
+  gap: 0.75rem;
+  padding-left: 1.25rem;
 }
 
 .side-menu__logo {
   height: 2.5rem;
+  width: 2.5rem;
+  object-fit: contain;
+}
+
+.side-menu__logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main, #232142);
+  letter-spacing: -0.5px;
 }
 
 .side-menu__list {
