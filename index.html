@@ -91,7 +91,7 @@
         </div>
         <div class="current-weather__visual">
           <img
-            src="/cloudy.png"
+            src="./src/assets/weather-icons/Partly Cloudy.png"
             alt="Partly Cloudy Visual"
             class="current-weather__img"
           />
@@ -102,11 +102,22 @@
         <dl class="weather-details__container">
           <div class="weather-details__item">
             <dd class="weather-details__value">
-              <i
-                data-lucide="droplet"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 class="weather-details__icon"
-                aria-hidden="true"
-              ></i>
+              >
+                <path
+                  d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"
+                />
+              </svg>
               <span>68%</span>
             </dd>
             <dt class="weather-details__label">Humidity</dt>
@@ -114,11 +125,22 @@
 
           <div class="weather-details__item">
             <dd class="weather-details__value">
-              <i
-                data-lucide="wind"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 class="weather-details__icon"
-                aria-hidden="true"
-              ></i>
+              >
+                <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+                <path d="M17.5 13a2.5 2.5 0 1 0-2.5-2.5H2" />
+                <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+              </svg>
               <span>12 km/h</span>
             </dd>
             <dt class="weather-details__label">Wind</dt>
@@ -126,11 +148,20 @@
 
           <div class="weather-details__item">
             <dd class="weather-details__value">
-              <i
-                data-lucide="thermometer"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 class="weather-details__icon"
-                aria-hidden="true"
-              ></i>
+              >
+                <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0z" />
+              </svg>
               <span>35°C</span>
             </dd>
             <dt class="weather-details__label">Feels like</dt>
@@ -168,6 +199,66 @@
               <span class="forecast__temp forecast__temp--max">33°</span>
               <span class="forecast__temp forecast__temp--min">25°</span>
             </div>
+          </li>
+        </ul>
+      </section>
+
+      <section
+        class="favorites-panel visually-hidden"
+        aria-labelledby="favorites-title"
+      >
+        <h2 id="favorites-title" class="favorites-panel__title">
+          Favorites List
+        </h2>
+
+        <ul class="favorites-panel__list">
+          <li class="favorites-panel__card">
+            <button
+              class="favorites-panel__btn"
+              aria-label="View weather for Phnom penh"
+            >
+              <div class="favorites-panel__info">
+                <img
+                  src="/src/assets/weather-icons/Partly Cloudy.png"
+                  alt="Partly cloudy"
+                  class="favorites-panel__icon"
+                />
+                <span class="favorites-panel__city">Phnom Penh </span>
+              </div>
+              <span class="favorites-panel__temp">32°C</span>
+            </button>
+          </li>
+
+          <li class="favorites-panel__card">
+            <button
+              class="favorites-panel__btn"
+              aria-label="View weather for Tokyo"
+            >
+              <div class="favorites-panel__info">
+                <img
+                  src="/src/assets/weather-icons/Cloudy.png"
+                  alt="Cloudy"
+                  class="favorites-panel__icon"
+                /><span class="favorites-panel__city">Tokyo</span>
+              </div>
+              <span class="favorites-panel__temp">24°C</span>
+            </button>
+          </li>
+
+          <li class="favorites-panel__card">
+            <button
+              class="favorites-panel__btn"
+              aria-label="View weather for New York"
+            >
+              <div class="favorites-panel__info">
+                <img
+                  src="/src/assets/weather-icons/Sunny.png"
+                  alt="Sunny"
+                  class="favorites-panel__icon"
+                /><span class="favorites-panel__city">New York</span>
+              </div>
+              <span class="favorites-panel__temp">18°C</span>
+            </button>
           </li>
         </ul>
       </section>
