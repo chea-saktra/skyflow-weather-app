@@ -11,12 +11,28 @@ function toggleSideMenu() {
   menuOverlay.classList.toggle("is-active");
 }
 
-function openFavoritesSection() {
+function navigateTo(targetHref) {
   currentWeather.classList.add("is-hidden");
   weatherDetails.classList.add("is-hidden");
   forecast.classList.add("is-hidden");
-  favoritesPanel.classList.remove("is-hidden");
-  toggleSideMenu();
+  favoritesPanel.classList.add("is-hidden");
+
+  if (targetHref === "#home") {
+    currentWeather.classList.remove("is-hidden");
+    weatherDetails.classList.remove("is-hidden");
+    forecast.classList.remove("is-hidden");
+  } else if (targetHref === "#favorites") {
+    favoritesPanel.classList.remove("is-hidden");
+  } else if (targetHref === "#history") {
+    console.log("Histroy section clicked");
+  } else if (targetHref === "#settings") {
+    console.log("Settings section clicked");
+  }
+
+  if (sideMenu && menuOverlay) {
+    sideMenu.classList.remove("is-active");
+    menuOverlay.classList.remove("is-active");
+  }
 }
 
 function handleAddToFavorites() {
@@ -33,4 +49,4 @@ function handleAddToFavorites() {
   }
 }
 
-export { openFavoritesSection, toggleSideMenu, handleAddToFavorites };
+export { navigateTo, toggleSideMenu, handleAddToFavorites };

@@ -1,8 +1,4 @@
-import {
-  handleAddToFavorites,
-  openFavoritesSection,
-  toggleSideMenu,
-} from "./modules/ui";
+import { handleAddToFavorites, navigateTo, toggleSideMenu } from "./modules/ui";
 
 const menuToggleBtn = document.getElementById("menu-toggle");
 const menuOverlay = document.querySelector(".menu-overlay");
@@ -26,12 +22,15 @@ if (menuOverlay) {
 }
 
 menuLinks.forEach((link) => {
-  if (link.textContent.trim() === "Favorites") {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      openFavoritesSection();
-    });
-  }
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    menuLinks.forEach((item) => item.classList.remove("is-active"));
+    link.classList.add("is-active");
+
+    const targetHref = link.getAttribute("href");
+    navigateTo(targetHref);
+  });
 });
 
 if (favToggleBtn) {
