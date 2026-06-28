@@ -1,3 +1,4 @@
+const menuOverlay = document.querySelector(".menu-overlay");
 const sideMenu = document.querySelector(".side-menu");
 const currentWeather = document.querySelector(".current-weather");
 const weatherDetails = document.querySelector(".weather-details");
@@ -7,6 +8,7 @@ const favToggleBtn = document.getElementById("fav-toggle");
 
 function toggleSideMenu() {
   sideMenu.classList.toggle("is-active");
+  menuOverlay.classList.toggle("is-active");
 }
 
 function openFavoritesSection() {
@@ -14,7 +16,7 @@ function openFavoritesSection() {
   weatherDetails.classList.add("is-hidden");
   forecast.classList.add("is-hidden");
   favoritesPanel.classList.remove("is-hidden");
-  sideMenu.classList.remove("is-active");
+  toggleSideMenu();
 }
 
 function handleAddToFavorites() {

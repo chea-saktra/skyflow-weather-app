@@ -10,26 +10,38 @@
   <body>
     <aside class="side-menu">
       <nav class="side-menu__nav">
-        <a href="#" class="side-menu__logo-link"
+        <a href="/home" class="side-menu__logo-link"
           ><img src="/Logo.png" alt="Weather App Logo" class="side-menu__logo"
         /></a>
-        <ul class="side-menu__list">
+        <ul class="side-menu__list ">
           <li class="side-menu__item">
-            <a href="#home" class="side-menu__link">Home</a>
+            <a href="#home" class="side-menu__link is-active">
+              <i class="side-menu__icon" data-lucide="home"></i> Home</a
+            >
           </li>
           <li class="side-menu__item">
-            <a href="#favorites" class="side-menu__link">Favorites</a>
+            <a href="#favorites" class="side-menu__link"
+              ><i class="side-menu__icon" data-lucide="star"></i> Favorites</a
+            >
           </li>
           <li class="side-menu__item">
-            <a href="#history" class="side-menu__link">History</a>
+            <a href="#history" class="side-menu__link"
+              ><i class="side-menu__icon" data-lucide="clock"></i> History</a
+            >
           </li>
           <li class="side-menu__item">
-            <a href="#settings" class="side-menu__link"> Settings </a>
+            <a href="#settings" class="side-menu__link"
+              ><i class="side-menu__icon" data-lucide="settings"></i>
+              Settings</a
+            >
           </li>
         </ul>
       </nav>
       <p class="side-menu__copyright">&copy; 2026 Weather App</p>
     </aside>
+
+    <div class="menu-overlay"></div>
+
     <main>
       <header class="mobile-header">
         <button
