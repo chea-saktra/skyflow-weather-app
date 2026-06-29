@@ -1,4 +1,5 @@
-import { handleAddToFavorites, navigateTo, toggleSideMenu } from "./modules/ui";
+import { fetchWeatherData } from "./modules/api";
+import { handleAddToFavorites, navigateTo, toggleSideMenu, updateWeatherUI } from "./modules/ui";
 
 const menuToggleBtn = document.getElementById("menu-toggle");
 const menuOverlay = document.querySelector(".menu-overlay");
@@ -37,5 +38,28 @@ if (favToggleBtn) {
   favToggleBtn.addEventListener("click", (e) => {
     e.preventDefault();
     handleAddToFavorites();
+  });
+}
+
+const searchInput = document.getElementById("search-input");
+const searchForm = document.querySelector(".search-panel__form");
+
+const initApp = async () => {
+  const defaultCity = "Phnom Penh";
+  const weatherData = await fetchWeatherData(defaultCity);
+  updateWeatherUI(weatherData);
+};
+
+initApp();
+
+if (searchForm && searchInput) {
+  searchForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const city = searchInput.value.trim();
+    if (city) {
+      const weatherData = await fetchWeatherData(city);
+      updateWeatherUI(weatherData);
+    }
   });
 }

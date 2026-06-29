@@ -49,4 +49,72 @@ function handleAddToFavorites() {
   }
 }
 
-export { navigateTo, toggleSideMenu, handleAddToFavorites };
+const locationTitle = document.querySelector(".mobile-header__location");
+const currentTemp = document.querySelector(".current-weather__temperature");
+const currentStatus = document.querySelector(".current-weather__status");
+const currentIcon = document.querySelector(".current-weather__img");
+
+const weatherIconMap = {
+  "01d": "Sunny.png",
+  "01n": "Night.png",
+
+  "02d": "Partly_Cloudy.png",
+  "02n": "Night.png",
+  "03d": "Partly_Cloudy.png",
+  "03n": "Night.png",
+  "04d": "Partly_Cloudy.png",
+  "04n": "Night.png",
+
+  "09d": "Rainy.png",
+  "09n": "Rainy.png",
+  "10d": "Rainy_with_Sun.png",
+  "10n": "Rainy.png",
+
+  "11d": "Thunderstorm.png",
+  "11n": "Lightning.png",
+
+  "13d": "Sonwfall.png",
+  "13n": "Snow.png",
+  "13s": "Sleet.png",
+
+  "50d": "Light_Drizzle.png",
+  "50n": "Light_Drizzle.png",
+};
+
+const updateWeatherUI = (data) => {
+  if (!data) return;
+
+  const { current, forecast } = data;
+
+  if (locationTitle) {
+    const i = document.createElement("i");
+    i.dataset.lucide = "map-pin";
+    locationTitle.textContent = current.name + " ";
+    locationTitle.append(i);
+  }
+
+  if (currentTemp) {
+    const sup = document.createElement("sup");
+    sup.textContent = "°C";
+    currentTemp.textContent = Math.round(current.main.temp);
+    currentTemp.append(sup);
+  }
+
+  if (currentStatus) {
+    const statusText = current.weather[0].description;
+    currentStatus.textContent = statusText.at(0).toUpperCase() + statusText.slice(1);
+  }
+
+  if (currentIcon) {
+    const iconCode = current.weather[0].icon;
+    const localIconName = weatherIconMap[iconCode] || "Sunny.png";
+    currentIcon.src = `../../src/assets/weather-icons/${localIconName}`;
+    currentIcon.alt = current.weather[0].main;
+  }
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+};
+
+export { navigateTo, toggleSideMenu, handleAddToFavorites, updateWeatherUI };
