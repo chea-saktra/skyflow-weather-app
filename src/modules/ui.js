@@ -53,6 +53,9 @@ const locationTitle = document.querySelector(".mobile-header__location");
 const currentTemp = document.querySelector(".current-weather__temperature");
 const currentStatus = document.querySelector(".current-weather__status");
 const currentIcon = document.querySelector(".current-weather__img");
+const humidityText = document.querySelector(".weather-details__humidity");
+const windText = document.querySelector(".weather-details__wind");
+const feelsLikeText = document.querySelector(".weather-details__feels-like");
 
 const weatherIconMap = {
   "01d": "Sunny.png",
@@ -110,6 +113,19 @@ const updateWeatherUI = (data) => {
     const localIconName = weatherIconMap[iconCode] || "Sunny.png";
     currentIcon.src = `../../src/assets/weather-icons/${localIconName}`;
     currentIcon.alt = current.weather[0].main;
+  }
+
+  if (humidityText) {
+    humidityText.textContent = `${current.main.humidity}%`;
+  }
+
+  if (windText) {
+    const windSpeedKmH = Math.round(current.wind.speed * 3.6);
+    windText.textContent = `${windSpeedKmH} km/h`;
+  }
+
+  if (feelsLikeText) {
+    feelsLikeText.textContent = `${Math.round(current.main.feels_like)}°C`;
   }
 
   if (window.lucide) {
