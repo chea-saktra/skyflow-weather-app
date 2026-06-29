@@ -189,6 +189,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .forecast__item {
   display: flex;
   justify-content: space-between;
@@ -208,16 +209,13 @@
   flex: 1;
 }
 
-.forecast__icon-wrapper {
+.forecast__custom-icon {
   flex: 1;
   display: flex;
   justify-content: center;
-  color: var(--icon-accent);
-}
-
-.forecast__icon {
-  width: 1.35rem;
-  height: 1.35rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
 }
 
 .forecast__temps {
@@ -320,6 +318,7 @@
 }
 
 /* SIDE MENU COMPONENT */
+
 .side-menu {
   display: none;
 }

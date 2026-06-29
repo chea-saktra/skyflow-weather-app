@@ -2,7 +2,7 @@ const menuOverlay = document.querySelector(".menu-overlay");
 const sideMenu = document.querySelector(".side-menu");
 const currentWeather = document.querySelector(".current-weather");
 const weatherDetails = document.querySelector(".weather-details");
-const forecast = document.querySelector(".forecast");
+const forecastSection = document.querySelector(".forecast");
 const favoritesPanel = document.querySelector(".favorites-panel");
 const favToggleBtn = document.getElementById("fav-toggle");
 
@@ -14,13 +14,13 @@ function toggleSideMenu() {
 function navigateTo(targetHref) {
   currentWeather.classList.add("is-hidden");
   weatherDetails.classList.add("is-hidden");
-  forecast.classList.add("is-hidden");
+  forecastSection.classList.add("is-hidden");
   favoritesPanel.classList.add("is-hidden");
 
   if (targetHref === "#home") {
     currentWeather.classList.remove("is-hidden");
     weatherDetails.classList.remove("is-hidden");
-    forecast.classList.remove("is-hidden");
+    forecastSection.classList.remove("is-hidden");
   } else if (targetHref === "#favorites") {
     favoritesPanel.classList.remove("is-hidden");
   } else if (targetHref === "#history") {
@@ -56,6 +56,7 @@ const currentIcon = document.querySelector(".current-weather__img");
 const humidityText = document.querySelector(".weather-details__humidity");
 const windText = document.querySelector(".weather-details__wind");
 const feelsLikeText = document.querySelector(".weather-details__feels-like");
+const forecastList = document.querySelector(".forecast__list");
 
 const weatherIconMap = {
   "01d": "Sunny.png",
@@ -126,6 +127,75 @@ const updateWeatherUI = (data) => {
 
   if (feelsLikeText) {
     feelsLikeText.textContent = `${Math.round(current.main.feels_like)}°C`;
+  }
+
+  if (forecastList && forecast.list) {
+    forecastList.innerHTML = ``;
+
+    const todayDateStr = new Date(current.dt * 1000).toISOString().split("T")[0];
+
+    const daysGroup = {};
+    forecast.list.forEach((item) => {
+      const dateKey = item.dt_txt.split(" ")[0];
+
+      if (dateKey === todayDateStr) return;
+
+      if (!daysGroup[dateKey]) {
+        daysGroup[dateKey] = [];
+      }
+      daysGroup[dateKey].push(item);
+    });
+
+    Object.keys(daysGroup)
+      .slice(0.5)
+      .forEach((dateKey) => {
+        const listForDay = daysGroup[dateKey];
+
+        let maxTemp = -Infinity;
+        let minTemp = Infinity;
+
+        const midIndex = Math.floor(listForDay.length / 2);
+        const representativeItem = listForDay[midIndex];
+
+        listForDay.forEach((item) => {
+          if (item.main.temp_max > maxTemp) maxTemp = item.main.temp_max;
+          if (item.main.temp_min < minTemp) minTemp = item.main.temp_min;
+        });
+
+        const dateObj = new Date(representativeItem.dt * 1000);
+        const dayOptions = { weekday: "short", representativeItem: "numeric" };
+        const formattedDay = dateObj.toLocaleDateString("en-US", dayOptions);
+        const iconCode = representativeItem.weather[0].icon;
+        const localIconName = weatherIconMap[iconCode] || "Sunny.png";
+
+        const li = document.createElement("li");
+        const time = document.createElement("time");
+        const img = document.createElement("img");
+        const forecastTemps = document.createElement("div");
+        const maxTempSpan = document.createElement("span");
+        const minTempSpan = document.createElement("span");
+
+        li.classList.add("forecast__item");
+        time.setAttribute("datetime", `${representativeItem.dt_txt.split(" ")[0]}`);
+        time.classList.add("forecast__day");
+        time.textContent = formattedDay;
+
+        img.src = `../../src/assets/weather-icons/${localIconName}`;
+        img.alt = representativeItem.weather[0].main;
+        img.classList.add("forecast__custom-icon");
+
+        forecastTemps.classList.add("forecast__temps");
+
+        maxTempSpan.classList.add("forecast__temp", "forecast__temp--max");
+        maxTempSpan.textContent = `${Math.round(maxTemp)}°`;
+
+        minTempSpan.classList.add("forecast__temp", "forecast__temp--min");
+        minTempSpan.textContent = `${Math.round(minTemp)}°`;
+
+        forecastTemps.append(maxTempSpan, minTempSpan);
+        li.append(time, img, forecastTemps);
+        forecastList.append(li);
+      });
   }
 
   if (window.lucide) {
