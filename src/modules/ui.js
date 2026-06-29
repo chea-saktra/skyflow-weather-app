@@ -117,4 +117,21 @@ const updateWeatherUI = (data) => {
   }
 };
 
-export { navigateTo, toggleSideMenu, handleAddToFavorites, updateWeatherUI };
+const mobileHeader = document.querySelector(".mobile-header");
+const searchPanel = document.querySelector(".search-panel");
+const searchInput = document.getElementById("search-input");
+
+const toggleSearchMode = (isSearchActive) => {
+  if (!mobileHeader || !searchPanel) return;
+
+  if (isSearchActive) {
+    mobileHeader.classList.add("is-hidden");
+    searchPanel.classList.remove("is-hidden");
+    if (searchInput) searchInput.focus();
+  } else {
+    mobileHeader.classList.remove("is-hidden");
+    searchPanel.classList.add("is-hidden");
+  }
+};
+
+export { navigateTo, toggleSideMenu, handleAddToFavorites, updateWeatherUI, toggleSearchMode };

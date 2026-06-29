@@ -1,5 +1,5 @@
 import { fetchWeatherData } from "./modules/api";
-import { handleAddToFavorites, navigateTo, toggleSideMenu, updateWeatherUI } from "./modules/ui";
+import { handleAddToFavorites, navigateTo, toggleSearchMode, toggleSideMenu, updateWeatherUI } from "./modules/ui";
 
 const menuToggleBtn = document.getElementById("menu-toggle");
 const menuOverlay = document.querySelector(".menu-overlay");
@@ -43,6 +43,11 @@ if (favToggleBtn) {
 
 const searchInput = document.getElementById("search-input");
 const searchForm = document.querySelector(".search-panel__form");
+const mobileHeader = document.querySelector(".mobile-header");
+const searchPanel = document.querySelector(".search-panel");
+const locationTitle = document.querySelector(".mobile-header__location");
+const btnBack = document.querySelector(".search-panel__btn-back");
+const btnClear = document.querySelector(".search-panel__btn-clear");
 
 const initApp = async () => {
   const defaultCity = "Phnom Penh";
@@ -52,6 +57,26 @@ const initApp = async () => {
 
 initApp();
 
+if (locationTitle) {
+  locationTitle.addEventListener("click", (e) => {
+    toggleSearchMode(true);
+  });
+}
+
+if (btnBack) {
+  btnBack.addEventListener("click", () => {
+    toggleSearchMode(false);
+  });
+}
+
+if (btnClear) {
+  btnClear.addEventListener("click", (e) => {
+    e.preventDefault();
+    searchInput.value = "";
+    searchInput.focus();
+  });
+}
+
 if (searchForm && searchInput) {
   searchForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -60,6 +85,10 @@ if (searchForm && searchInput) {
     if (city) {
       const weatherData = await fetchWeatherData(city);
       updateWeatherUI(weatherData);
+
+      toggleSearchMode(false);
+
+      searchInput.value = "";
     }
   });
 }
