@@ -1,0 +1,69 @@
+/* FORECAST COMPONENT */
+
+.forecast {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.forecast__title {
+  font-size: var(--font-body);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.forecast__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.forecast__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.forecast__item:last-child {
+  border-bottom: none;
+}
+
+.forecast__day {
+  font-size: var(--font-body);
+  font-weight: 600;
+  color: var(--text-main);
+  flex: 1;
+}
+
+.forecast__custom-icon {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+.forecast__temps {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  font-size: var(--font-body);
+}
+
+.forecast__temp--max {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.forecast__temp--min {
+  font-weight: 500;
+  color: var(--text-muted);
+}

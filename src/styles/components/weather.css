@@ -1,0 +1,100 @@
+/* CURRENT WEATHER COMPONENT */
+.current-weather {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+  margin-bottom: var(--section-gap);
+}
+
+.current-weather__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.current-weather__temperature {
+  font-size: var(--font-temp);
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 0.9;
+  position: relative;
+}
+
+.current-weather__temperature sup {
+  font-size: 0.4em;
+  font-weight: 400;
+  top: -0.15rem;
+}
+.current-weather__status {
+  font-size: var(--font-body);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.5rem;
+}
+
+.current-weather__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.current-weather__img {
+  width: clamp(7.5rem, 30vw, 9.5rem);
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
+}
+
+/* WEATHER DETALIS COMPONENT */
+
+.weather-details__container {
+  display: flex;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding) 0;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: var(--section-gap);
+}
+
+.weather-details__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.weather-details__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.weather-details__value {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-body);
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.weather-details__icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--icon-accent);
+}
+
+.weather-details__label {
+  font-size: var(--font-muted);
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 0.4rem;
+}

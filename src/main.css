@@ -1,0 +1,8 @@
+@import "./styles/base/reset.css";
+@import "./styles/base/tokens.css";
+
+@import "./styles/components/navbar.css";
+@import "./styles/components/weather.css";
+@import "./styles/components/forecast.css";
+@import "./styles/components/sidebar.css";
+@import "./styles/components/favorites.css";
