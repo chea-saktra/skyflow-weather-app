@@ -245,13 +245,28 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.favorites-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  color: var(--text-white);
+}
+
+.favorites-panel__btn--back {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 .favorites-panel__title {
   font-size: var(--font-title);
   font-weight: 700;
-  color: var(--text-white);
-  margin-bottom: 0.25rem;
-  padding-left: 0.25rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.favorites-panel__btn--edit{
+  font-size: var(--font-body);
 }
 
 .favorites-panel__list {
@@ -264,14 +279,13 @@
   padding: 0 1.25rem;
 }
 
-.favorites-panel__card:not(:last-child) {
+.favorites-panel__item:not(:last-child) {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .favorites-panel__btn {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 1.15rem 0;
   text-align: left;
@@ -282,28 +296,40 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.favorites-panel__info {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
+.favorites-panel__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.06));
+  flex-shrink: 0;
 }
 
-.favorites-panel__icon {
-  width: 1.85rem;
-  height: 1.85rem;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.06));
+.favorites-panel__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin-left: 1rem;
+  flex: 1;
 }
 
 .favorites-panel__city {
   font-size: var(--font-body);
   font-weight: 600;
   color: var(--text-main);
+  line-height: 1.2;
+}
+
+.favorites-panel__country {
+  font-size: var(--font-muted);
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
 .favorites-panel__temp {
-  font-size: var(--font-body);
+  font-size: cale(var(--font-body) * 1.2);
   font-weight: 700;
   color: var(--text-main);
+  margin-left: auto;
 }
 
 @keyframes fadeIn {
