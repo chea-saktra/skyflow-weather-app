@@ -83,7 +83,6 @@
   font-size: var(--font-body);
   font-weight: 700;
   color: var(--text-main);
-  white-space: nowrap;
 }
 
 .weather-details__icon {

@@ -27,7 +27,7 @@ body {
 main {
   width: 100vw;
   min-height: 100vh;
-  max-width: 26.975rem;
+  max-width: 37.5rem;
   background: var(--bg-gradient);
   background-attachment: fixed;
   padding: calc(var(--app-padding) + 1rem) var(--app-padding) var(--app-padding) var(--app-padding);
@@ -99,3 +99,4 @@ img {
 .is-hidden {
   display: none !important;
 }
+

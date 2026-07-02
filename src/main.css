@@ -6,3 +6,5 @@
 @import "./styles/components/forecast.css";
 @import "./styles/components/sidebar.css";
 @import "./styles/components/favorites.css";
+
+@import "./styles/responsive.css";
