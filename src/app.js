@@ -8,16 +8,23 @@ import { addFavorites, isFavorite, removeFavorite } from "./utils/storage";
 
 let currentCityName = "Phnom Penh";
 
+const handleFavoriteCityClick = (clickedCity) => {
+  switchDOMVisibility("#home");
+  const menuLinks = document.querySelectorAll(".side-menu__link");
+  menuLinks.forEach((link) => {
+    if (link.getAttribute("href") === "#home") link.classList.add("is-active");
+    else link.classList.remove("is-active");
+  });
+  loadCityData(clickedCity);
+};
+
 export const loadCityData = async (city) => {
   const data = await fetchWeatherData(city);
   if (!data) return;
 
   currentCityName = data.current.name;
-
   updateCurrentWeatherUI(data.current);
-
   updateForecastUI(data.forecast, data.current.dt);
-
   updateFavButtonUl(isFavorite(currentCityName));
 
   if (window.lucide) window.lucide.createIcons();
@@ -30,31 +37,37 @@ export const initApp = () => {
     switchDOMVisibility(targetHref);
 
     if (targetHref === "#favorites") {
-      await updateFavoritesUI((clickedCity) => {
-        switchDOMVisibility("#home");
-
-        const menuLinks = document.querySelectorAll(".side-menu__link");
-        menuLinks.forEach((link) => {
-          if (link.getAttribute("href") === "#home") link.classList.add("is-active");
-          else link.classList.remove("is-active");
-        });
-
-        loadCityData(clickedCity);
-      });
+      await updateFavoritesUI(handleFavoriteCityClick);
     }
   });
 
+  const toggleFavorite = async () => {
+    if (isFavorite(currentCityName)) {
+      removeFavorite(currentCityName);
+      updateFavButtonUl(false);
+    } else {
+      addFavorites(currentCityName);
+      updateFavButtonUl(true);
+    }
+
+    const favoritesPanel = document.querySelector(".favorites-panel");
+    if (favoritesPanel && !favoritesPanel.classList.contains("is-hidden")) {
+      await updateFavoritesUI(handleFavoriteCityClick);
+    }
+  };
   const favToggleBtn = document.getElementById("fav-toggle");
   if (favToggleBtn) {
     favToggleBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      if (isFavorite(currentCityName)) {
-        removeFavorite(currentCityName);
-        updateFavButtonUl(false);
-      } else {
-        addFavorites(currentCityName);
-        updateFavButtonUl(true);
-      }
+      toggleFavorite();
+    });
+  }
+
+  const desktopFavBtn = document.getElementById("desktop-fav-btn");
+  if (desktopFavBtn) {
+    desktopFavBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleFavorite();
     });
   }
   loadCityData(currentCityName);

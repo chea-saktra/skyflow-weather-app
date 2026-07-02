@@ -11,18 +11,18 @@ export const updateFavoritesUI = async (onCityClick) => {
   const favorites = getFavorites();
 
   const header = document.createElement("header");
-  const backBtn = document.createElement("button");
+  const btnBack = document.createElement("button");
   const backIcon = document.createElement("i");
   const titleHeader = document.createElement("h1");
-  const editBtn = document.createElement("button");
+  const btnAdd = document.createElement("button");
 
   header.classList.add("favorites-panel__header");
 
-  backBtn.classList.add("favorites-panel__btn--back");
-  backBtn.setAttribute("aria-label", "Go back to home");
+  btnBack.classList.add("favorites-panel__btn--back");
+  btnBack.setAttribute("aria-label", "Go back to home");
 
   backIcon.dataset.lucide = "arrow-left";
-  backBtn.addEventListener("click", () => {
+  btnBack.addEventListener("click", () => {
     switchDOMVisibility("#home");
     const menuLinks = document.querySelectorAll(".side-menu__link");
     menuLinks.forEach((link) => {
@@ -34,11 +34,23 @@ export const updateFavoritesUI = async (onCityClick) => {
   titleHeader.classList.add("favorites-panel__title");
   titleHeader.textContent = "My Favorites";
 
-  editBtn.classList.add("favorites-panel__btn-edit");
-  editBtn.textContent = "Edit";
+  btnAdd.classList.add("favorites-panel__btn--add-city");
 
-  backBtn.append(backIcon);
-  header.append(backBtn, titleHeader, editBtn);
+  btnAdd.textContent = "Add City";
+  btnAdd.addEventListener("click", () => {
+    switchDOMVisibility("#home");
+
+    const menuLinks = document.querySelectorAll(".side-menu__link");
+    menuLinks.forEach((link) => {
+      if (link.getAttribute("href") === "#home") link.classList.add("is-active");
+      else link.classList.remove("is-active");
+    });
+
+    if (typeof window.openSearchPanel === "function") window.openSearchPanel();
+  });
+
+  btnBack.append(backIcon);
+  header.append(btnBack, titleHeader, btnAdd);
   favoritesPanel.append(header);
 
   if (favorites.length === 0) {

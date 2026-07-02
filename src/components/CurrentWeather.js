@@ -2,6 +2,8 @@ import { getIconUrl } from "../utils/helpers";
 
 export const updateCurrentWeatherUI = (current) => {
   const locationTitle = document.querySelector(".mobile-header__location");
+  const currentTitle = document.querySelector(".current-weather__title");
+  const currentDateText = document.querySelector(".current-weather__date");
   const currentTemp = document.querySelector(".current-weather__temperature");
   const currentStatus = document.querySelector(".current-weather__status");
   const currentIcon = document.querySelector(".current-weather__img");
@@ -14,6 +16,29 @@ export const updateCurrentWeatherUI = (current) => {
     i.dataset.lucide = "map-pin";
     locationTitle.textContent = current.name + " ";
     locationTitle.append(i);
+  }
+  if (currentTitle) {
+    const i = document.createElement("i");
+    i.dataset.lucide = "map-pin";
+    currentTitle.textContent = current.name + " ";
+    currentTitle.append(i);
+  }
+  if (currentDateText) {
+    const localTime = new Date((current.dt + current.timezone) * 1000);
+
+    const options = {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "UTC",
+    };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(localTime);
+
+    currentDateText.textContent = formattedDate.replace(" at ", " . ");
   }
 
   if (currentTemp) {
@@ -45,18 +70,28 @@ export const updateCurrentWeatherUI = (current) => {
   if (feelsLikeText) {
     feelsLikeText.textContent = `${Math.round(current.main.feels_like)}°C`;
   }
-
 };
 
 export const updateFavButtonUl = (isFav) => {
-  const favToggleBtn = document.getElementById("fav-toggle");
-  if (!favToggleBtn) return;
+  const mobileFavToggleBtn = document.getElementById("fav-toggle");
+  const desktopFavToggleBtn = document.getElementById("desktop-fav-btn");
 
-  if (isFav) {
-    favToggleBtn.classList.add("is-favorite");
-    favToggleBtn.style.color = "#ffca28";
-  } else {
-    favToggleBtn.classList.remove("is-favorite");
-    favToggleBtn.style.color = "inherit";
+  if (mobileFavToggleBtn) {
+    if (isFav) {
+      mobileFavToggleBtn.style.color = "#ffca28";
+    } else {
+      mobileFavToggleBtn.style.color = "inherit";
+    }
+  }
+
+  if (desktopFavToggleBtn) {
+    const desktopText = desktopFavToggleBtn.querySelector("span");
+    if (isFav) {
+      desktopFavToggleBtn.classList.add("is-favorite");
+      if (desktopText) desktopText.textContent = "Remove from Favorites";
+    } else {
+      desktopFavToggleBtn.classList.remove("is-favorite");
+      if (desktopText) desktopText.textContent = "Add to Favorites";
+    }
   }
 };

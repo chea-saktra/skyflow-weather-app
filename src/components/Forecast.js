@@ -36,8 +36,9 @@ export const updateForecastUI = (forecast, currentDt) => {
       });
 
       const dateObj = new Date(representativeItem.dt * 1000);
-      const dayOptions = { weekday: "short", day: "numeric" };
-      const formattedDay = dateObj.toLocaleDateString("en-US", dayOptions);
+      const weekday = dateObj.toLocaleDateString("en-US", { weekday: "short" });
+      const day = dateObj.toLocaleDateString("en-US", { day: "numeric" });
+      const formattedDay = `${weekday} ${day}`;
 
       const li = document.createElement("li");
       const time = document.createElement("time");

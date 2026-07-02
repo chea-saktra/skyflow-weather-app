@@ -47,6 +47,8 @@ export const switchDOMVisibility = (targetHref) => {
   const weatherDetails = document.querySelector(".weather-details");
   const forecastSection = document.querySelector(".forecast");
   const favoritesPanel = document.querySelector(".favorites-panel");
+  const dashboardLayout = document.querySelector(".dashboard-layout");
+  const searchPanel = document.querySelector(".search-panel");
 
   if (currentWeather) currentWeather.classList.add("is-hidden");
   if (weatherDetails) weatherDetails.classList.add("is-hidden");
@@ -58,7 +60,11 @@ export const switchDOMVisibility = (targetHref) => {
     currentWeather.classList.remove("is-hidden");
     weatherDetails.classList.remove("is-hidden");
     forecastSection.classList.remove("is-hidden");
+    if (searchPanel) searchPanel.style.removeProperty("display");
+    if (dashboardLayout) dashboardLayout.style.removeProperty("display");
   } else if (targetHref === "#favorites") {
+    if (searchPanel) searchPanel.style.setProperty("display", "none", "important");
+    if (dashboardLayout) dashboardLayout.style.setProperty("display", "none", "important");
     if (mobileHeader) mobileHeader.classList.add("is-hidden");
     favoritesPanel.classList.remove("is-hidden");
   }
