@@ -49,23 +49,30 @@ export const switchDOMVisibility = (targetHref) => {
   const favoritesPanel = document.querySelector(".favorites-panel");
   const dashboardLayout = document.querySelector(".dashboard-layout");
   const searchPanel = document.querySelector(".search-panel");
+  const historyPanel = document.querySelector(".history-panel");
 
   if (currentWeather) currentWeather.classList.add("is-hidden");
   if (weatherDetails) weatherDetails.classList.add("is-hidden");
   if (forecastSection) forecastSection.classList.add("is-hidden");
   if (favoritesPanel) favoritesPanel.classList.add("is-hidden");
+  if (historyPanel) historyPanel.classList.add("is-hidden");
 
   if (targetHref === "#home") {
-    if (mobileHeader) mobileHeader.classList.remove("is-hidden");
+    mobileHeader.classList.remove("is-hidden");
     currentWeather.classList.remove("is-hidden");
     weatherDetails.classList.remove("is-hidden");
     forecastSection.classList.remove("is-hidden");
-    if (searchPanel) searchPanel.style.removeProperty("display");
-    if (dashboardLayout) dashboardLayout.style.removeProperty("display");
+    searchPanel.style.removeProperty("display");
+    dashboardLayout.style.removeProperty("display");
   } else if (targetHref === "#favorites") {
-    if (searchPanel) searchPanel.style.setProperty("display", "none", "important");
-    if (dashboardLayout) dashboardLayout.style.setProperty("display", "none", "important");
-    if (mobileHeader) mobileHeader.classList.add("is-hidden");
+    searchPanel.style.setProperty("display", "none", "important");
+    dashboardLayout.style.setProperty("display", "none", "important");
+    mobileHeader.classList.add("is-hidden");
     favoritesPanel.classList.remove("is-hidden");
+  } else if (targetHref === "#history") {
+    searchPanel.style.setProperty("display", "none", "important");
+    dashboardLayout.style.setProperty("display", "none", "important");
+    mobileHeader.classList.add("is-hidden");
+    if (historyPanel) historyPanel.classList.remove("is-hidden");
   }
 };

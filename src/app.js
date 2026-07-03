@@ -1,9 +1,11 @@
 import { updateCurrentWeatherUI, updateFavButtonUl } from "./components/CurrentWeather";
 import { updateFavoritesUI } from "./components/Favorites";
 import { updateForecastUI } from "./components/Forecast";
+import { updateHistoryUI } from "./components/History";
 import { initNavbar } from "./components/Navbar";
 import { initSidebar, switchDOMVisibility } from "./components/Sidebar";
 import { fetchWeatherData } from "./utils/api";
+import { addHistoryItem } from "./utils/history";
 import { addFavorites, isFavorite, removeFavorite } from "./utils/storage";
 
 let currentCityName = "Phnom Penh";
@@ -26,6 +28,7 @@ export const loadCityData = async (city) => {
   updateCurrentWeatherUI(data.current);
   updateForecastUI(data.forecast, data.current.dt);
   updateFavButtonUl(isFavorite(currentCityName));
+  addHistoryItem(data.current);
 
   if (window.lucide) window.lucide.createIcons();
 };
@@ -38,6 +41,8 @@ export const initApp = () => {
 
     if (targetHref === "#favorites") {
       await updateFavoritesUI(handleFavoriteCityClick);
+    } else if (targetHref === "#history") {
+      await updateHistoryUI(handleFavoriteCityClick);
     }
   });
 
