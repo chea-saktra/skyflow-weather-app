@@ -1,7 +1,8 @@
 :root {
-  --bg-gradient: radial-gradient(circle at 50% 25%, #4fa3ff 0%, #3e8bf3 45%, #d6e7fc 100%);
+  --app-bg: #f8fafc;
 
   --card-bg: rgba(255, 255, 255, 0.45);
+  --card-solid-bg: #ffffff;
   --card-border: rgba(255, 255, 255, 0.6);
   --card-shadow: 0 8px 24px rgba(135, 149, 165, 0.1);
 
@@ -11,7 +12,7 @@
   --icon-accent: #2575fc;
   --input-bg: rgba(255, 255, 255, 0.5);
 
-  --nav-bg: #f8f9fa;
+  --nav-bg: #ffffff;
   --nav-item-active: #2575fc;
 
   --font-temp: clamp(4.5rem, 16vw, 5.5rem);
@@ -20,7 +21,7 @@
   --font-muted: clamp(0.813rem, 3.2vw, 0.928rem);
 
   --app-padding: clamp(1.25rem, 5vw, 1.5rem);
-  --card-padding: clamp(1rem, 4.5rem, 1.25rem);
+  --card-padding: clamp(1rem, 4rem, 1.25rem);
   --section-gap: clamp(1.25rem, 5vw, 1.75rem);
 
   --radius-xl: 2.25rem;

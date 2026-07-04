@@ -7,7 +7,7 @@ import { updateSettingsUI } from "./components/Settings";
 import { initSidebar, switchDOMVisibility } from "./components/Sidebar";
 import { fetchWeatherData } from "./utils/api";
 import { addHistoryItem } from "./utils/history";
-import { addFavorites, isFavorite, removeFavorite } from "./utils/storage";
+import { addFavorites, isFavorite, removeFavorite } from "./utils/favorite";
 
 let currentCityName = "Phnom Penh";
 
@@ -63,6 +63,7 @@ export const initApp = () => {
       await updateFavoritesUI(handleFavoriteCityClick);
     }
   };
+  
   const favToggleBtn = document.getElementById("fav-toggle");
   if (favToggleBtn) {
     favToggleBtn.addEventListener("click", (e) => {

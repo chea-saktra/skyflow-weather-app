@@ -42,6 +42,7 @@ export const initSidebar = (onNavigate) => {
 };
 
 export const switchDOMVisibility = (targetHref) => {
+  const mainContent = document.querySelector("main");
   const mobileHeader = document.querySelector(".mobile-header");
   const currentWeather = document.querySelector(".current-weather");
   const weatherDetails = document.querySelector(".weather-details");
@@ -52,12 +53,21 @@ export const switchDOMVisibility = (targetHref) => {
   const historyPanel = document.querySelector(".history-panel");
   const settingsPanel = document.querySelector(".settings-panel");
 
+  if (mainContent) {
+    if (targetHref === "#home") {
+      mainContent.classList.add("has-home-bg");
+    } else {
+      mainContent.classList.remove("has-home-bg");
+    }
+  }
+
   if (currentWeather) currentWeather.classList.add("is-hidden");
   if (weatherDetails) weatherDetails.classList.add("is-hidden");
   if (forecastSection) forecastSection.classList.add("is-hidden");
   if (favoritesPanel) favoritesPanel.classList.add("is-hidden");
   if (historyPanel) historyPanel.classList.add("is-hidden");
   if (settingsPanel) settingsPanel.classList.add("is-hidden");
+  if (mobileHeader) mobileHeader.classList.add("is-hidden");
 
   if (targetHref === "#home") {
     mobileHeader.classList.remove("is-hidden");
@@ -74,7 +84,6 @@ export const switchDOMVisibility = (targetHref) => {
   } else if (targetHref === "#history") {
     searchPanel.style.setProperty("display", "none", "important");
     dashboardLayout.style.setProperty("display", "none", "important");
-    mobileHeader.classList.add("is-hidden");
     if (historyPanel) historyPanel.classList.remove("is-hidden");
   } else if (targetHref === "#settings") {
     searchPanel.style.setProperty("display", "none", "important");

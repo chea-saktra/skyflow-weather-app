@@ -1,6 +1,6 @@
 import { fetchWeatherData } from "../utils/api";
 import { getIconUrl } from "../utils/helpers";
-import { getFavorites } from "../utils/storage";
+import { getFavorites } from "../utils/favorite";
 import { switchDOMVisibility } from "./Sidebar";
 
 export const updateFavoritesUI = async (onCityClick) => {
