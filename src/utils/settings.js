@@ -1,4 +1,5 @@
 const TEMPERATURE_KEY = "temp_unit";
+const WINDSPEED_KEY = "windspeed_unit";
 
 export const getTemperatureUnit = () => localStorage.getItem(TEMPERATURE_KEY) || "C";
 
@@ -14,3 +15,11 @@ export const formatTemperature = (celsiusValue) => {
 
   return `${Math.round(celsiusValue)}°C`;
 };
+
+export const getWindSpeedUnit = () => localStorage.getItem(WINDSPEED_KEY) || "kmh";
+
+export const setWindSpeedUnit = (unit) => localStorage.setItem(WINDSPEED_KEY, unit.toLowerCase());
+
+export const convertMetersPerSecondToMph = (ms) => Math.round(ms * 2.23694);
+
+export const convertMetersPerSecondToKmh = (ms) => Math.round(ms * 3.6);

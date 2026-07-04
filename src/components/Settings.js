@@ -1,5 +1,5 @@
 import { createToggleRow } from "../utils/helpers";
-import { getTemperatureUnit, setTemperatureUnit } from "../utils/settings";
+import { getTemperatureUnit, getWindSpeedUnit, setTemperatureUnit, setWindSpeedUnit } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
 export const updateSettingsUI = (onUnitChange) => {
@@ -77,7 +77,7 @@ export const updateSettingsUI = (onUnitChange) => {
   btnC.type = "button";
   btnC.classList.add("btn-toggle");
   if (currentUnit === "C") btnC.classList.add("is-active");
-  btnC.setAttribute("data-value", "c");
+  btnC.setAttribute("data-value", "C");
   btnC.textContent = "°C";
 
   const btnF = document.createElement("button");
@@ -100,15 +100,19 @@ export const updateSettingsUI = (onUnitChange) => {
   const toggleBtnWind = document.createElement("div");
   toggleBtnWind.classList.add("settings-panel__toggle-btn");
 
+  const currentWindUnit = getWindSpeedUnit().toLowerCase();
+
   const btnKmh = document.createElement("button");
   btnKmh.type = "button";
-  btnKmh.classList.add("btn-toggle", "is-active");
+  btnKmh.classList.add("btn-toggle");
+  if (currentWindUnit === "kmh") btnKmh.classList.add("is-active");
   btnKmh.setAttribute("data-value", "kmh");
   btnKmh.textContent = "km/h";
 
   const btnMph = document.createElement("button");
   btnMph.type = "button";
   btnMph.classList.add("btn-toggle");
+  if (currentWindUnit === "mph") btnMph.classList.add("is-active");
   btnMph.setAttribute("data-value", "mph");
   btnMph.textContent = "mph";
 
@@ -292,8 +296,23 @@ export const updateSettingsUI = (onUnitChange) => {
     });
   });
 
+  const windButtons = toggleBtnWind.querySelectorAll(".btn-toggle");
+  windButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      windButtons.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+
+      const selectedWindUnit = btn.getAttribute("data-value");
+      setWindSpeedUnit(selectedWindUnit);
+
+      if (typeof onUnitChange === "function") {
+        onUnitChange();
+      }
+    });
+  });
+
   settingsPanel.querySelectorAll(".settings-panel__toggle-btn").forEach((group) => {
-    if (group === toggleBtnTemp) return;
+    if (group === toggleBtnTemp || group === toggleBtnWind) return;
     const buttons = group.querySelectorAll(".btn-toggle");
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {

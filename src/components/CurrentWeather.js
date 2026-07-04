@@ -1,5 +1,12 @@
 import { getIconUrl } from "../utils/helpers";
-import { converCelsiusToFahrenheit, formatTemperature, getTemperatureUnit } from "../utils/settings";
+import {
+  converCelsiusToFahrenheit,
+  convertMetersPerSecondToKmh,
+  convertMetersPerSecondToMph,
+  formatTemperature,
+  getTemperatureUnit,
+  getWindSpeedUnit,
+} from "../utils/settings";
 
 export const updateCurrentWeatherUI = (current) => {
   const locationTitle = document.querySelector(".mobile-header__location");
@@ -66,8 +73,20 @@ export const updateCurrentWeatherUI = (current) => {
   }
 
   if (windText) {
+    const windUnit = getWindSpeedUnit().toLowerCase();
+    let windSpeed = 0;
+    let unitLabel = "";
+
+    if (windUnit === "mph") {
+      windSpeed = convertMetersPerSecondToMph(current.wind.speed);
+      unitLabel = "mph";
+    } else {
+      windSpeed = convertMetersPerSecondToKmh(current.wind.speed);
+      unitLabel = "km/h";
+    }
+
     const windSpeedKmH = Math.round(current.wind.speed * 3.6);
-    windText.textContent = `${windSpeedKmH} km/h`;
+    windText.textContent = `${windSpeed} ${unitLabel}`;
   }
 
   if (feelsLikeText) {
