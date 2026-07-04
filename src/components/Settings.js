@@ -1,5 +1,12 @@
 import { createToggleRow } from "../utils/helpers";
-import { getTemperatureUnit, getWindSpeedUnit, setTemperatureUnit, setWindSpeedUnit } from "../utils/settings";
+import {
+  getDateFormat,
+  getTemperatureUnit,
+  getWindSpeedUnit,
+  setDateFormat,
+  setTemperatureUnit,
+  setWindSpeedUnit,
+} from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
 export const updateSettingsUI = (onUnitChange) => {
@@ -165,6 +172,16 @@ export const updateSettingsUI = (onUnitChange) => {
   optDate2.textContent = "28/05/2026";
 
   selectDate.append(optDate1, optDate2);
+
+  selectDate.value = getDateFormat();
+
+  selectDate.addEventListener("change", (e) => {
+    setDateFormat(e.target.value);
+    if (typeof onUnitChange == "function") {
+      onUnitChange();
+    }
+  });
+
   rowDate.append(labelDate, selectDate);
   generalGroup.append(rowDate);
 

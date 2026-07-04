@@ -3,6 +3,7 @@ import {
   converCelsiusToFahrenheit,
   convertMetersPerSecondToKmh,
   convertMetersPerSecondToMph,
+  formatDate,
   formatTemperature,
   getTemperatureUnit,
   getWindSpeedUnit,
@@ -34,25 +35,14 @@ export const updateCurrentWeatherUI = (current) => {
   if (currentDateText) {
     const localTime = new Date((current.dt + current.timezone) * 1000);
 
-    const options = {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-      timeZone: "UTC",
-    };
-
-    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(localTime);
-
-    currentDateText.textContent = formattedDate.replace(" at ", " . ");
+    currentDateText.textContent = formatDate(localTime);
   }
 
   if (currentTemp) {
     const unit = getTemperatureUnit().toUpperCase();
     const tempValue = unit === "F" ? converCelsiusToFahrenheit(current.main.temp) : Math.round(current.main.temp);
     const sup = document.createElement("sup");
+    
     sup.textContent = `°${unit}`;
     currentTemp.textContent = tempValue;
     currentTemp.append(sup);
