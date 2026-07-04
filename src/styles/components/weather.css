@@ -54,7 +54,6 @@
   padding: var(--card-padding) 0;
   box-shadow: var(--card-shadow);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   margin-bottom: var(--section-gap);
 }
 

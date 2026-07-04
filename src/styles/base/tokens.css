@@ -6,15 +6,13 @@
   --card-shadow: 0 8px 24px rgba(135, 149, 165, 0.1);
 
   --text-white: #ffffff;
-  --text-main: #233142;
-  --text-muted: #5a6b82;
+  --text-main: #2c3a4b;
+  --text-muted: #697c95;
   --icon-accent: #2575fc;
   --input-bg: rgba(255, 255, 255, 0.5);
 
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  --nav-item-default: #8fa0b5;
+  --nav-bg: #f8f9fa;
   --nav-item-active: #2575fc;
-  --nav-item-active-bg: #e6f0ff;
 
   --font-temp: clamp(4.5rem, 16vw, 5.5rem);
   --font-title: clamp(1.25rem, 5vw, 1.5rem);

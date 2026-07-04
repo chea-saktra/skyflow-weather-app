@@ -29,3 +29,27 @@ export const getIconUrl = (iconCode) => {
   const localIconName = weatherIconMap[iconCode] || "Sunny.png";
   return `../../src/assets/weather-icons/${localIconName}`;
 };
+
+export const createToggleRow = (text, inputId, isChecked = false) => {
+  const row = document.createElement("div");
+  row.classList.add("settings-panel__row");
+
+  const labelText = document.createElement("label");
+  labelText.setAttribute("for", inputId);
+  labelText.textContent = text;
+
+  const labelSwitch = document.createElement("label");
+  labelSwitch.classList.add("switch");
+
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  input.id = inputId;
+  input.checked = isChecked;
+
+  const slider = document.createElement("span");
+  slider.classList.add("slider");
+
+  labelSwitch.append(input, slider);
+  row.append(labelText, labelSwitch);
+  return row;
+};

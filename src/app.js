@@ -3,6 +3,7 @@ import { updateFavoritesUI } from "./components/Favorites";
 import { updateForecastUI } from "./components/Forecast";
 import { updateHistoryUI } from "./components/History";
 import { initNavbar } from "./components/Navbar";
+import { updateSettingsUI } from "./components/Settings";
 import { initSidebar, switchDOMVisibility } from "./components/Sidebar";
 import { fetchWeatherData } from "./utils/api";
 import { addHistoryItem } from "./utils/history";
@@ -43,6 +44,8 @@ export const initApp = () => {
       await updateFavoritesUI(handleFavoriteCityClick);
     } else if (targetHref === "#history") {
       await updateHistoryUI(handleFavoriteCityClick);
+    } else if (targetHref === "#settings") {
+      updateSettingsUI();
     }
   });
 

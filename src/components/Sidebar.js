@@ -50,12 +50,14 @@ export const switchDOMVisibility = (targetHref) => {
   const dashboardLayout = document.querySelector(".dashboard-layout");
   const searchPanel = document.querySelector(".search-panel");
   const historyPanel = document.querySelector(".history-panel");
+  const settingsPanel = document.querySelector(".settings-panel");
 
   if (currentWeather) currentWeather.classList.add("is-hidden");
   if (weatherDetails) weatherDetails.classList.add("is-hidden");
   if (forecastSection) forecastSection.classList.add("is-hidden");
   if (favoritesPanel) favoritesPanel.classList.add("is-hidden");
   if (historyPanel) historyPanel.classList.add("is-hidden");
+  if (settingsPanel) settingsPanel.classList.add("is-hidden");
 
   if (targetHref === "#home") {
     mobileHeader.classList.remove("is-hidden");
@@ -74,5 +76,9 @@ export const switchDOMVisibility = (targetHref) => {
     dashboardLayout.style.setProperty("display", "none", "important");
     mobileHeader.classList.add("is-hidden");
     if (historyPanel) historyPanel.classList.remove("is-hidden");
+  } else if (targetHref === "#settings") {
+    searchPanel.style.setProperty("display", "none", "important");
+    dashboardLayout.style.setProperty("display", "none", "important");
+    settingsPanel.classList.remove("is-hidden");
   }
 };
