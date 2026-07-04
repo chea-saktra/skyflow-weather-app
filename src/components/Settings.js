@@ -1,12 +1,12 @@
 import { createToggleRow } from "../utils/helpers";
+import { getTemperatureUnit, setTemperatureUnit } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
-export const updateSettingsUI = () => {
+export const updateSettingsUI = (onUnitChange) => {
   const settingsPanel = document.querySelector(".settings-panel");
   settingsPanel.textContent = "";
 
   //   Mobile Header
-
   const mobileHeader = document.createElement("header");
   mobileHeader.classList.add("settings-panel__mobile-header");
 
@@ -71,15 +71,19 @@ export const updateSettingsUI = () => {
   const toggleBtnTemp = document.createElement("div");
   toggleBtnTemp.classList.add("settings-panel__toggle-btn");
 
+  const currentUnit = getTemperatureUnit().toUpperCase();
+
   const btnC = document.createElement("button");
   btnC.type = "button";
-  btnC.classList.add("btn-toggle", "is-active");
+  btnC.classList.add("btn-toggle");
+  if (currentUnit === "C") btnC.classList.add("is-active");
   btnC.setAttribute("data-value", "c");
   btnC.textContent = "°C";
 
   const btnF = document.createElement("button");
   btnF.type = "button";
   btnF.classList.add("btn-toggle");
+  if (currentUnit === "F") btnF.classList.add("is-active");
   btnF.setAttribute("data-value", "F");
   btnF.textContent = "°F";
 
@@ -273,7 +277,23 @@ export const updateSettingsUI = () => {
     });
   }
 
+  const tempButtons = toggleBtnTemp.querySelectorAll(".btn-toggle");
+  tempButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tempButtons.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+
+      const selectedUnit = btn.getAttribute("data-value");
+      setTemperatureUnit(selectedUnit);
+
+      if (typeof onUnitChange === "function") {
+        onUnitChange();
+      }
+    });
+  });
+
   settingsPanel.querySelectorAll(".settings-panel__toggle-btn").forEach((group) => {
+    if (group === toggleBtnTemp) return;
     const buttons = group.querySelectorAll(".btn-toggle");
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {

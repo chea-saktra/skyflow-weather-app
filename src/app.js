@@ -21,9 +21,18 @@ const handleFavoriteCityClick = (clickedCity) => {
   loadCityData(clickedCity);
 };
 
+const reRenderCurrentData = () => {
+  if (window.currentWeatherData) {
+    updateCurrentWeatherUI(window.currentWeatherData.current);
+    updateForecastUI(window.currentWeatherData.forecast, window.currentWeatherData.current.dt);
+  }
+};
+
 export const loadCityData = async (city) => {
   const data = await fetchWeatherData(city);
   if (!data) return;
+
+  window.currentWeatherData = data;
 
   currentCityName = data.current.name;
   updateCurrentWeatherUI(data.current);
@@ -45,7 +54,7 @@ export const initApp = () => {
     } else if (targetHref === "#history") {
       await updateHistoryUI(handleFavoriteCityClick);
     } else if (targetHref === "#settings") {
-      updateSettingsUI();
+      updateSettingsUI(reRenderCurrentData);
     }
   });
 
@@ -63,7 +72,7 @@ export const initApp = () => {
       await updateFavoritesUI(handleFavoriteCityClick);
     }
   };
-  
+
   const favToggleBtn = document.getElementById("fav-toggle");
   if (favToggleBtn) {
     favToggleBtn.addEventListener("click", (e) => {

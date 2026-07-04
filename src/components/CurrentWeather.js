@@ -1,4 +1,5 @@
 import { getIconUrl } from "../utils/helpers";
+import { converCelsiusToFahrenheit, formatTemperature, getTemperatureUnit } from "../utils/settings";
 
 export const updateCurrentWeatherUI = (current) => {
   const locationTitle = document.querySelector(".mobile-header__location");
@@ -42,9 +43,11 @@ export const updateCurrentWeatherUI = (current) => {
   }
 
   if (currentTemp) {
+    const unit = getTemperatureUnit().toUpperCase();
+    const tempValue = unit === "F" ? converCelsiusToFahrenheit(current.main.temp) : Math.round(current.main.temp);
     const sup = document.createElement("sup");
-    sup.textContent = "°C";
-    currentTemp.textContent = Math.round(current.main.temp);
+    sup.textContent = `°${unit}`;
+    currentTemp.textContent = tempValue;
     currentTemp.append(sup);
   }
 
@@ -68,7 +71,7 @@ export const updateCurrentWeatherUI = (current) => {
   }
 
   if (feelsLikeText) {
-    feelsLikeText.textContent = `${Math.round(current.main.feels_like)}°C`;
+    feelsLikeText.textContent = formatTemperature(current.main.feels_like);
   }
 };
 

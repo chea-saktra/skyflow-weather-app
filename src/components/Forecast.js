@@ -1,4 +1,5 @@
 import { getIconUrl } from "../utils/helpers";
+import { converCelsiusToFahrenheit, getTemperatureUnit } from "../utils/settings";
 
 export const updateForecastUI = (forecast, currentDt) => {
   const forecastList = document.querySelector(".forecast__list");
@@ -18,6 +19,8 @@ export const updateForecastUI = (forecast, currentDt) => {
     }
     daysGroup[dateKey].push(item);
   });
+
+  const unit = getTemperatureUnit().toUpperCase();
 
   Object.keys(daysGroup)
     .slice(0, 5)
@@ -59,10 +62,12 @@ export const updateForecastUI = (forecast, currentDt) => {
       forecastTemps.classList.add("forecast__temps");
 
       maxTempSpan.classList.add("forecast__temp", "forecast__temp--max");
-      maxTempSpan.textContent = `${Math.round(maxTemp)}°`;
-
       minTempSpan.classList.add("forecast__temp", "forecast__temp--min");
-      minTempSpan.textContent = `${Math.round(minTemp)}°`;
+      const finaMax = unit === "F" ? converCelsiusToFahrenheit(maxTemp) : Math.round(maxTemp);
+      const finaMin = unit === "F" ? converCelsiusToFahrenheit(minTemp) : Math.round(minTemp);
+
+      maxTempSpan.textContent = `${finaMax}°`;
+      minTempSpan.textContent = `${finaMin}°`;
 
       forecastTemps.append(maxTempSpan, minTempSpan);
       li.append(time, img, forecastTemps);

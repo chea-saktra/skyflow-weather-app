@@ -2,6 +2,7 @@ import { fetchWeatherData } from "../utils/api";
 import { getIconUrl } from "../utils/helpers";
 import { getFavorites } from "../utils/favorite";
 import { switchDOMVisibility } from "./Sidebar";
+import { converCelsiusToFahrenheit, getTemperatureUnit } from "../utils/settings";
 
 export const updateFavoritesUI = async (onCityClick) => {
   const favoritesPanel = document.querySelector(".favorites-panel");
@@ -60,6 +61,8 @@ export const updateFavoritesUI = async (onCityClick) => {
   const ul = document.createElement("ul");
   ul.classList.add("favorites-panel__list");
 
+  const unit = getTemperatureUnit().toUpperCase();
+
   for (const city of favorites) {
     const data = await fetchWeatherData(city);
     if (!data) continue;
@@ -97,9 +100,9 @@ export const updateFavoritesUI = async (onCityClick) => {
 
     infoContainer.append(nameCity, countryText);
 
-    const roundedTemp = Math.round(current.main.temp);
+    const fianlTemp = unit === "F" ? converCelsiusToFahrenheit(current.main.temp) : Math.round(current.main.temp);
     tempElement.classList.add("favorites-panel__temp");
-    tempElement.innerHTML = `${roundedTemp}°C`;
+    tempElement.innerHTML = `${fianlTemp}°${unit}`;
 
     button.addEventListener("click", () => {
       if (typeof onCityClick === "function") {

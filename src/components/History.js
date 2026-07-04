@@ -1,5 +1,6 @@
 import { getIconUrl } from "../utils/helpers";
 import { clearAllHistory, deleteHistoryItem, getHistory } from "../utils/history";
+import { converCelsiusToFahrenheit, getTemperatureUnit } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
 const bindHeaderEvents = (panel, onCityClick) => {
@@ -113,7 +114,7 @@ export const updateHistoryUI = (onCityClick) => {
 
   const searchInput = document.createElement("input");
   searchInput.type = "search";
-  searchInput.classList.add("history-filter-input")
+  searchInput.classList.add("history-filter-input");
   searchInput.placeholder = "Search history...";
 
   searchWrapper.append(searchIcon, searchInput);
@@ -158,7 +159,13 @@ export const updateHistoryUI = (onCityClick) => {
   const mobileListContainer = document.createElement("ul");
   mobileListContainer.classList.add("history-panel__mobile-list");
 
+  const unit = getTemperatureUnit().toUpperCase();
+
   historyItems.forEach((item) => {
+    const rawCelsiusValue = parseInt(item.temp, 10);
+    const convertedTempNumber = unit === "F" ? converCelsiusToFahrenheit(rawCelsiusValue) : Math.round(rawCelsiusValue);
+    const finalDisplayTemp = `${convertedTempNumber}°${unit}`;
+
     const tr = document.createElement("tr");
 
     const tdDateTime = document.createElement("td");
@@ -179,7 +186,7 @@ export const updateHistoryUI = (onCityClick) => {
     tr.append(tdCondition);
 
     const tdTemp = document.createElement("td");
-    tdTemp.textContent = item.temp;
+    tdTemp.textContent = finalDisplayTemp;
     tr.append(tdTemp);
 
     const tdAction = document.createElement("td");

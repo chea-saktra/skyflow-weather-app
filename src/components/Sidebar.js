@@ -55,9 +55,9 @@ export const switchDOMVisibility = (targetHref) => {
 
   if (mainContent) {
     if (targetHref === "#home") {
-      mainContent.classList.add("has-home-bg");
-    } else {
       mainContent.classList.remove("has-home-bg");
+    } else {
+      mainContent.classList.add("has-home-bg");
     }
   }
 
