@@ -3,6 +3,7 @@ const WINDSPEED_KEY = "windspeed_unit";
 const DATE_FORMAT_KEY = "date_format";
 const TIME_FORMAT_KEY = "time_format";
 const THEME_KEY = "theme";
+const NOTIFICATIONS_KEY = "notifications";
 
 export const getTemperatureUnit = () =>
   localStorage.getItem(TEMPERATURE_KEY) || "C";
@@ -91,5 +92,43 @@ export const applyThemeUI = () => {
   } else {
     document.documentElement.classList.remove("dark-theme");
     document.body.classList.remove("dark-theme");
+  }
+};
+
+export const getNotificationsStatus = () =>
+  localStorage.getItem(NOTIFICATIONS_KEY) === "true";
+
+export const setNotificationsStatus = async (status, callback) => {
+  if (status && "Notification" in window) {
+    if (Notification.permission === "denied") {
+      alert(
+        "You have denied notifications on this browser. Please click on the lock icon (🔒) above the URL and change it to Allow to enable this feature! 🙏",
+      );
+      if (typeof callback === "function") callback(false);
+      return;
+    }
+    const permission = await Notification.requestPermission();
+
+    if (permission === "granted") {
+      localStorage.setItem(NOTIFICATIONS_KEY, "true");
+      if (typeof callback === "function") callback(true);
+    } else {
+      localStorage.setItem(NOTIFICATIONS_KEY, "false");
+      if (typeof callback === "function") callback(false);
+    }
+  } else {
+    localStorage.setItem(NOTIFICATIONS_KEY, "false");
+    if (typeof callback === "function") callback(false);
+  }
+};
+
+export const sendWeatherNotification = (title, body, iconUrl = "") => {
+  if (!getNotificationsStatus() || !("Notification" in window)) return;
+
+  if (Notification.permission === "granted") {
+    new Notification(title, {
+      body: body,
+      icon: iconUrl || "default-icon.png",
+    });
   }
 };

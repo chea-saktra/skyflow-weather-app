@@ -1,11 +1,13 @@
 import {
   applyThemeUI,
   getDateFormat,
+  getNotificationsStatus,
   getTemperatureUnit,
   getTheme,
   getTimeFormat,
   getWindSpeedUnit,
   setDateFormat,
+  setNotificationsStatus,
   setTemperatureUnit,
   setTheme,
   setTimeFormat,
@@ -270,11 +272,12 @@ export const updateSettingsUI = (onUnitChange) => {
   prefsGroup.classList.add("settings-panel__group");
 
   const isDark = getTheme() === "dark";
+  const isNotification = getNotificationsStatus();
 
   prefsGroup.append(
     createToggleRow("Dark Mode", "toggle-dark-mode", isDark),
     createToggleRow("Use Location", "toggle-use-location", true),
-    createToggleRow("Notifications", "toggle-notifications", false),
+    createToggleRow("Notifications", "toggle-notifications", isNotification),
   );
   perfsCard.append(prefsGroup);
   rightColumn.append(perfsCard);
@@ -369,7 +372,7 @@ export const updateSettingsUI = (onUnitChange) => {
     });
   });
 
-  const darkModeToggle = settingsPanel.querySelector("#toggle-dark-mode");
+  const darkModeToggle = prefsGroup.querySelector("#toggle-dark-mode");
   if (darkModeToggle) {
     darkModeToggle.addEventListener("change", (e) => {
       if (e.target.checked) {
@@ -378,6 +381,22 @@ export const updateSettingsUI = (onUnitChange) => {
         setTheme("light");
       }
       applyThemeUI();
+    });
+  }
+
+  const notificationToggle = prefsGroup.querySelector(
+    "#toggle-notifications",
+  );
+  if (notificationToggle) {
+    notificationToggle.addEventListener("change", async (e) => {
+      const isChecked = e.target.checked;
+      await setNotificationsStatus(isChecked, (finalStatus) => {
+        notificationToggle.checked = finalStatus;
+      });
+
+      if (typeof onUnitChange === "function") {
+        onUnitChange();
+      }
     });
   }
 

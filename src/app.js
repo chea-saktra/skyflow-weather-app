@@ -11,7 +11,13 @@ import { initSidebar, switchDOMVisibility } from "./components/Sidebar";
 import { fetchWeatherData } from "./utils/api";
 import { addHistoryItem } from "./utils/history";
 import { addFavorites, isFavorite, removeFavorite } from "./utils/favorite";
-import { applyThemeUI } from "./utils/settings";
+import {
+  applyThemeUI,
+  formatTemperature,
+  getNotificationsStatus,
+  sendWeatherNotification,
+} from "./utils/settings";
+import { getIconUrl } from "./utils/helpers";
 
 let currentCityName = "Phnom Penh";
 
@@ -47,12 +53,26 @@ export const loadCityData = async (city) => {
   updateFavButtonUl(isFavorite(currentCityName));
   addHistoryItem(data.current);
 
+  if (data && data.current) {
+    const title = `Weather Update: ${data.current.name}`;
+    const formattedTemp = formatTemperature(data.current.main.temp);
+    const body = `Current temperature is ${formattedTemp} with ${data.current.weather[0].description}.`;
+    const icon = getIconUrl(data.current.weather[0].icon);
+    if (
+      getNotificationsStatus() &&
+      "Notification" in window &&
+      Notification.permission === "granted"
+    ) {
+      sendWeatherNotification(title, body, icon);
+    }
+  }
+
   if (window.lucide) window.lucide.createIcons();
 };
 
 export const initApp = () => {
   applyThemeUI();
-  
+
   initNavbar((city) => loadCityData(city));
 
   initSidebar(async (targetHref) => {

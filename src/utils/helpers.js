@@ -29,5 +29,3 @@ export const getIconUrl = (iconCode) => {
   const localIconName = weatherIconMap[iconCode] || "Sunny.png";
   return `../../src/assets/weather-icons/${localIconName}`;
 };
-
-
