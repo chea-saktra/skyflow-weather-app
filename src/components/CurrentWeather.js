@@ -1,6 +1,6 @@
 import { getIconUrl } from "../utils/helpers";
 import {
-  converCelsiusToFahrenheit,
+  convertCelsiusToFahrenheit,
   convertMetersPerSecondToKmh,
   convertMetersPerSecondToMph,
   formatDate,
@@ -20,29 +20,31 @@ export const updateCurrentWeatherUI = (current) => {
   const windText = document.querySelector(".weather-details__wind");
   const feelsLikeText = document.querySelector(".weather-details__feels-like");
 
-  if (locationTitle) {
+  const appendMapPin = (element) => {
+    if (!element) return;
     const i = document.createElement("i");
     i.dataset.lucide = "map-pin";
-    locationTitle.textContent = current.name + " ";
-    locationTitle.append(i);
-  }
-  if (currentTitle) {
-    const i = document.createElement("i");
-    i.dataset.lucide = "map-pin";
-    currentTitle.textContent = current.name + " ";
-    currentTitle.append(i);
-  }
-  if (currentDateText) {
-    const localTime = new Date((current.dt + current.timezone) * 1000);
+    element.textContent = current.name + "";
+    element.append(i);
+  };
 
-    currentDateText.textContent = formatDate(localTime);
+  appendMapPin(locationTitle);
+  appendMapPin(currentTitle);
+
+  if (currentDateText) {
+    const utcTime = new Date();
+
+    currentDateText.textContent = formatDate(utcTime, current.timezone);
   }
 
   if (currentTemp) {
     const unit = getTemperatureUnit().toUpperCase();
-    const tempValue = unit === "F" ? converCelsiusToFahrenheit(current.main.temp) : Math.round(current.main.temp);
+    const tempValue =
+      unit === "F"
+        ? convertCelsiusToFahrenheit(current.main.temp)
+        : Math.round(current.main.temp);
     const sup = document.createElement("sup");
-    
+
     sup.textContent = `°${unit}`;
     currentTemp.textContent = tempValue;
     currentTemp.append(sup);
@@ -50,7 +52,8 @@ export const updateCurrentWeatherUI = (current) => {
 
   if (currentStatus) {
     const statusText = current.weather[0].description;
-    currentStatus.textContent = statusText.at(0).toUpperCase() + statusText.slice(1);
+    currentStatus.textContent =
+      statusText.at(0).toUpperCase() + statusText.slice(1);
   }
 
   if (currentIcon) {
@@ -75,7 +78,6 @@ export const updateCurrentWeatherUI = (current) => {
       unitLabel = "km/h";
     }
 
-    const windSpeedKmH = Math.round(current.wind.speed * 3.6);
     windText.textContent = `${windSpeed} ${unitLabel}`;
   }
 

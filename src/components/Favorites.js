@@ -2,7 +2,10 @@ import { fetchWeatherData } from "../utils/api";
 import { getIconUrl } from "../utils/helpers";
 import { getFavorites } from "../utils/favorite";
 import { switchDOMVisibility } from "./Sidebar";
-import { converCelsiusToFahrenheit, getTemperatureUnit } from "../utils/settings";
+import {
+  convertCelsiusToFahrenheit,
+  getTemperatureUnit,
+} from "../utils/settings";
 
 export const updateFavoritesUI = async (onCityClick) => {
   const favoritesPanel = document.querySelector(".favorites-panel");
@@ -27,7 +30,8 @@ export const updateFavoritesUI = async (onCityClick) => {
     switchDOMVisibility("#home");
     const menuLinks = document.querySelectorAll(".side-menu__link");
     menuLinks.forEach((link) => {
-      if (link.getAttribute("href") === "#home") link.classList.add("is-active");
+      if (link.getAttribute("href") === "#home")
+        link.classList.add("is-active");
       else link.classList.remove("is-active");
     });
   });
@@ -43,7 +47,8 @@ export const updateFavoritesUI = async (onCityClick) => {
 
     const menuLinks = document.querySelectorAll(".side-menu__link");
     menuLinks.forEach((link) => {
-      if (link.getAttribute("href") === "#home") link.classList.add("is-active");
+      if (link.getAttribute("href") === "#home")
+        link.classList.add("is-active");
       else link.classList.remove("is-active");
     });
 
@@ -100,7 +105,10 @@ export const updateFavoritesUI = async (onCityClick) => {
 
     infoContainer.append(nameCity, countryText);
 
-    const fianlTemp = unit === "F" ? converCelsiusToFahrenheit(current.main.temp) : Math.round(current.main.temp);
+    const fianlTemp =
+      unit === "F"
+        ? convertCelsiusToFahrenheit(current.main.temp)
+        : Math.round(current.main.temp);
     tempElement.classList.add("favorites-panel__temp");
     tempElement.innerHTML = `${fianlTemp}°${unit}`;
 

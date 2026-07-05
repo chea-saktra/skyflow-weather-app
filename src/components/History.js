@@ -1,6 +1,13 @@
 import { getIconUrl } from "../utils/helpers";
-import { clearAllHistory, deleteHistoryItem, getHistory } from "../utils/history";
-import { converCelsiusToFahrenheit, getTemperatureUnit } from "../utils/settings";
+import {
+  clearAllHistory,
+  deleteHistoryItem,
+  getHistory,
+} from "../utils/history";
+import {
+  convertCelsiusToFahrenheit,
+  getTemperatureUnit,
+} from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
 const bindHeaderEvents = (panel, onCityClick) => {
@@ -9,7 +16,8 @@ const bindHeaderEvents = (panel, onCityClick) => {
     btnBack.addEventListener("click", () => {
       switchDOMVisibility("#home");
       document.querySelectorAll(".side-menu__link").forEach((link) => {
-        if (link.getAttribute("href") === "#home") link.classList.add("is-active");
+        if (link.getAttribute("href") === "#home")
+          link.classList.add("is-active");
         else link.classList.remove("is-active");
       });
     });
@@ -22,11 +30,16 @@ const bindHeaderEvents = (panel, onCityClick) => {
     }
   };
 
-  const btnClearMobile = panel.querySelector(".history-panel__btn--clear-mobile");
-  const btnClearDesktop = panel.querySelector(".history-panel__btn--clear-desktop");
+  const btnClearMobile = panel.querySelector(
+    ".history-panel__btn--clear-mobile",
+  );
+  const btnClearDesktop = panel.querySelector(
+    ".history-panel__btn--clear-desktop",
+  );
 
   if (btnClearMobile) btnClearMobile.addEventListener("click", clearAllAciton);
-  if (btnClearDesktop) btnClearDesktop.addEventListener("click", clearAllAciton);
+  if (btnClearDesktop)
+    btnClearDesktop.addEventListener("click", clearAllAciton);
 };
 
 const setupLiveFilter = (panel) => {
@@ -48,14 +61,18 @@ const setupLiveFilter = (panel) => {
 };
 
 const bindDeleteEvents = (panel, onCityClick) => {
-  panel.querySelectorAll(".history-panel__btn--delete, .history-panel__btn--delete-mobile").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const id = Number(btn.getAttribute("data-id"));
-      deleteHistoryItem(id);
-      updateHistoryUI(onCityClick);
+  panel
+    .querySelectorAll(
+      ".history-panel__btn--delete, .history-panel__btn--delete-mobile",
+    )
+    .forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const id = Number(btn.getAttribute("data-id"));
+        deleteHistoryItem(id);
+        updateHistoryUI(onCityClick);
+      });
     });
-  });
 };
 
 export const updateHistoryUI = (onCityClick) => {
@@ -163,7 +180,10 @@ export const updateHistoryUI = (onCityClick) => {
 
   historyItems.forEach((item) => {
     const rawCelsiusValue = parseInt(item.temp, 10);
-    const convertedTempNumber = unit === "F" ? converCelsiusToFahrenheit(rawCelsiusValue) : Math.round(rawCelsiusValue);
+    const convertedTempNumber =
+      unit === "F"
+        ? convertCelsiusToFahrenheit(rawCelsiusValue)
+        : Math.round(rawCelsiusValue);
     const finalDisplayTemp = `${convertedTempNumber}°${unit}`;
 
     const tr = document.createElement("tr");
@@ -243,7 +263,10 @@ export const updateHistoryUI = (onCityClick) => {
     btnDeleteMobile.type = "button";
     btnDeleteMobile.classList.add("history-panel__btn--delete-mobile");
     btnDeleteMobile.setAttribute("data-id", item.id);
-    btnDeleteMobile.setAttribute("aria-label", `Delete ${item.city} from history`);
+    btnDeleteMobile.setAttribute(
+      "aria-label",
+      `Delete ${item.city} from history`,
+    );
 
     const deleteMobileIcon = document.createElement("i");
     deleteMobileIcon.setAttribute("data-lucide", "x");

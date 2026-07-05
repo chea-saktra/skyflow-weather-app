@@ -1,5 +1,8 @@
 import { getIconUrl } from "../utils/helpers";
-import { converCelsiusToFahrenheit, getTemperatureUnit } from "../utils/settings";
+import {
+  convertCelsiusToFahrenheit,
+  getTemperatureUnit,
+} from "../utils/settings";
 
 export const updateForecastUI = (forecast, currentDt) => {
   const forecastList = document.querySelector(".forecast__list");
@@ -51,7 +54,10 @@ export const updateForecastUI = (forecast, currentDt) => {
       const minTempSpan = document.createElement("span");
 
       li.classList.add("forecast__item");
-      time.setAttribute("datetime", `${representativeItem.dt_txt.split(" ")[0]}`);
+      time.setAttribute(
+        "datetime",
+        `${representativeItem.dt_txt.split(" ")[0]}`,
+      );
       time.classList.add("forecast__day");
       time.textContent = formattedDay;
 
@@ -63,8 +69,14 @@ export const updateForecastUI = (forecast, currentDt) => {
 
       maxTempSpan.classList.add("forecast__temp", "forecast__temp--max");
       minTempSpan.classList.add("forecast__temp", "forecast__temp--min");
-      const finaMax = unit === "F" ? converCelsiusToFahrenheit(maxTemp) : Math.round(maxTemp);
-      const finaMin = unit === "F" ? converCelsiusToFahrenheit(minTemp) : Math.round(minTemp);
+      const finaMax =
+        unit === "F"
+          ? convertCelsiusToFahrenheit(maxTemp)
+          : Math.round(maxTemp);
+      const finaMin =
+        unit === "F"
+          ? convertCelsiusToFahrenheit(minTemp)
+          : Math.round(minTemp);
 
       maxTempSpan.textContent = `${finaMax}°`;
       minTempSpan.textContent = `${finaMin}°`;

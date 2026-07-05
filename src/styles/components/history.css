@@ -163,7 +163,7 @@
   }
 
   .history-panel__table th {
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(152, 152, 152);
     color: var(--text-main);
     padding: 1rem 1.25rem;
     font-weight: 700;

@@ -1,15 +1,41 @@
-import { createToggleRow } from "../utils/helpers";
 import {
+  applyThemeUI,
   getDateFormat,
   getTemperatureUnit,
+  getTheme,
   getTimeFormat,
   getWindSpeedUnit,
   setDateFormat,
   setTemperatureUnit,
+  setTheme,
   setTimeFormat,
   setWindSpeedUnit,
 } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
+
+const createToggleRow = (text, inputId, isChecked = false) => {
+  const row = document.createElement("div");
+  row.classList.add("settings-panel__row");
+
+  const labelText = document.createElement("label");
+  labelText.setAttribute("for", inputId);
+  labelText.textContent = text;
+
+  const labelSwitch = document.createElement("label");
+  labelSwitch.classList.add("switch");
+
+  const input = document.createElement("input");
+  input.type = "checkbox";
+  input.id = inputId;
+  input.checked = isChecked;
+
+  const slider = document.createElement("span");
+  slider.classList.add("slider");
+
+  labelSwitch.append(input, slider);
+  row.append(labelText, labelSwitch);
+  return row;
+};
 
 export const updateSettingsUI = (onUnitChange) => {
   const settingsPanel = document.querySelector(".settings-panel");
@@ -243,8 +269,10 @@ export const updateSettingsUI = (onUnitChange) => {
   const prefsGroup = document.createElement("div");
   prefsGroup.classList.add("settings-panel__group");
 
+  const isDark = getTheme() === "dark";
+
   prefsGroup.append(
-    createToggleRow("Dark Mode", "toggle-dark-mode", false),
+    createToggleRow("Dark Mode", "toggle-dark-mode", isDark),
     createToggleRow("Use Location", "toggle-use-location", true),
     createToggleRow("Notifications", "toggle-notifications", false),
   );
@@ -340,6 +368,18 @@ export const updateSettingsUI = (onUnitChange) => {
       }
     });
   });
+
+  const darkModeToggle = settingsPanel.querySelector("#toggle-dark-mode");
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener("change", (e) => {
+      if (e.target.checked) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+      applyThemeUI();
+    });
+  }
 
   settingsPanel
     .querySelectorAll(".settings-panel__toggle-btn")

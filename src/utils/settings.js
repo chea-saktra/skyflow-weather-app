@@ -2,6 +2,7 @@ const TEMPERATURE_KEY = "temp_unit";
 const WINDSPEED_KEY = "windspeed_unit";
 const DATE_FORMAT_KEY = "date_format";
 const TIME_FORMAT_KEY = "time_format";
+const THEME_KEY = "theme";
 
 export const getTemperatureUnit = () =>
   localStorage.getItem(TEMPERATURE_KEY) || "C";
@@ -9,13 +10,13 @@ export const getTemperatureUnit = () =>
 export const setTemperatureUnit = (unit) =>
   localStorage.setItem(TEMPERATURE_KEY, unit);
 
-export const converCelsiusToFahrenheit = (celsius) =>
+export const convertCelsiusToFahrenheit = (celsius) =>
   Math.round((celsius * 9) / 5 + 32);
 
 export const formatTemperature = (celsiusValue) => {
   const unit = getTemperatureUnit();
   if (unit === "F" || unit === "f") {
-    return `${converCelsiusToFahrenheit(celsiusValue)}°F`;
+    return `${convertCelsiusToFahrenheit(celsiusValue)}°F`;
   }
 
   return `${Math.round(celsiusValue)}°C`;
@@ -42,8 +43,11 @@ export const getTimeFormat = () =>
 export const setTimeFormat = (format) =>
   localStorage.setItem(TIME_FORMAT_KEY, format);
 
-export const formatDate = (dateInput) => {
+export const formatDate = (dateInput, timezoneOffset = 0) => {
   const dateObj = dateInput instanceof Date ? dateInput : new Date(dateInput);
+  const localTimestamp = dateObj.getTime() + timezoneOffset * 1000;
+  const targetDate = new Date(localTimestamp);
+
   const dateFormat = getDateFormat();
   const timeFormat = getTimeFormat();
   const is12Hour = timeFormat === "12";
@@ -58,7 +62,7 @@ export const formatDate = (dateInput) => {
       hour12: is12Hour,
       timeZone: "UTC",
     })
-      .format(dateObj)
+      .format(targetDate)
       .replace(",", " .");
   }
 
@@ -71,6 +75,21 @@ export const formatDate = (dateInput) => {
     hour12: is12Hour,
     timeZone: "UTC",
   })
-    .format(dateObj)
+    .format(targetDate)
     .replace(" at ", " . ");
+};
+
+export const getTheme = () => localStorage.getItem(THEME_KEY) || "light";
+
+export const setTheme = (theme) => localStorage.setItem(THEME_KEY, theme);
+
+export const applyThemeUI = () => {
+  const currentTheme = getTheme();
+  if (currentTheme === "dark") {
+    document.documentElement.classList.add("dark-theme");
+    document.body.classList.add("dark-theme");
+  } else {
+    document.documentElement.classList.remove("dark-theme");
+    document.body.classList.remove("dark-theme");
+  }
 };

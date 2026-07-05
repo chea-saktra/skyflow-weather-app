@@ -1,4 +1,7 @@
-import { updateCurrentWeatherUI, updateFavButtonUl } from "./components/CurrentWeather";
+import {
+  updateCurrentWeatherUI,
+  updateFavButtonUl,
+} from "./components/CurrentWeather";
 import { updateFavoritesUI } from "./components/Favorites";
 import { updateForecastUI } from "./components/Forecast";
 import { updateHistoryUI } from "./components/History";
@@ -8,6 +11,7 @@ import { initSidebar, switchDOMVisibility } from "./components/Sidebar";
 import { fetchWeatherData } from "./utils/api";
 import { addHistoryItem } from "./utils/history";
 import { addFavorites, isFavorite, removeFavorite } from "./utils/favorite";
+import { applyThemeUI } from "./utils/settings";
 
 let currentCityName = "Phnom Penh";
 
@@ -24,7 +28,10 @@ const handleFavoriteCityClick = (clickedCity) => {
 const reRenderCurrentData = () => {
   if (window.currentWeatherData) {
     updateCurrentWeatherUI(window.currentWeatherData.current);
-    updateForecastUI(window.currentWeatherData.forecast, window.currentWeatherData.current.dt);
+    updateForecastUI(
+      window.currentWeatherData.forecast,
+      window.currentWeatherData.current.dt,
+    );
   }
 };
 
@@ -44,6 +51,8 @@ export const loadCityData = async (city) => {
 };
 
 export const initApp = () => {
+  applyThemeUI();
+  
   initNavbar((city) => loadCityData(city));
 
   initSidebar(async (targetHref) => {
