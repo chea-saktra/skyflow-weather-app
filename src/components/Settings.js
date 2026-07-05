@@ -1,12 +1,15 @@
 import {
   applyThemeUI,
   getDateFormat,
+  getLocationStatus,
   getNotificationsStatus,
   getTemperatureUnit,
   getTheme,
   getTimeFormat,
+  getUserLocation,
   getWindSpeedUnit,
   setDateFormat,
+  setLocationStatus,
   setNotificationsStatus,
   setTemperatureUnit,
   setTheme,
@@ -39,7 +42,7 @@ const createToggleRow = (text, inputId, isChecked = false) => {
   return row;
 };
 
-export const updateSettingsUI = (onUnitChange) => {
+export const updateSettingsUI = (onUnitChange, onSearch) => {
   const settingsPanel = document.querySelector(".settings-panel");
   settingsPanel.textContent = "";
 
@@ -272,11 +275,12 @@ export const updateSettingsUI = (onUnitChange) => {
   prefsGroup.classList.add("settings-panel__group");
 
   const isDark = getTheme() === "dark";
+  const inLocation = getLocationStatus();
   const isNotification = getNotificationsStatus();
 
   prefsGroup.append(
     createToggleRow("Dark Mode", "toggle-dark-mode", isDark),
-    createToggleRow("Use Location", "toggle-use-location", true),
+    createToggleRow("Use Location", "toggle-use-location", inLocation),
     createToggleRow("Notifications", "toggle-notifications", isNotification),
   );
   perfsCard.append(prefsGroup);
@@ -384,9 +388,36 @@ export const updateSettingsUI = (onUnitChange) => {
     });
   }
 
-  const notificationToggle = prefsGroup.querySelector(
-    "#toggle-notifications",
-  );
+  const locationToggle = prefsGroup.querySelector("#toggle-use-location");
+  if (locationToggle) {
+    locationToggle.addEventListener("change", (e) => {
+      const isChecked = e.target.checked;
+      setLocationStatus(isChecked);
+
+      if (isChecked) {
+        getUserLocation(
+          (coords) => {
+            if (typeof onSearch === "function") {
+              onSearch(coords);
+            }
+
+            switchDOMVisibility("#home");
+            document.querySelectorAll(".side-menu__link").forEach((link) => {
+              if (link.getAttribute("href") === "#home")
+                link.classList.add("is-active");
+              else link.classList.remove("is-active");
+            });
+          },
+          () => {
+            locationToggle.checked = false;
+            setLocationStatus(false);
+          },
+        );
+      }
+    });
+  }
+
+  const notificationToggle = prefsGroup.querySelector("#toggle-notifications");
   if (notificationToggle) {
     notificationToggle.addEventListener("change", async (e) => {
       const isChecked = e.target.checked;

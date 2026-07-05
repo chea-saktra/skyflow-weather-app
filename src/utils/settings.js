@@ -4,6 +4,7 @@ const DATE_FORMAT_KEY = "date_format";
 const TIME_FORMAT_KEY = "time_format";
 const THEME_KEY = "theme";
 const NOTIFICATIONS_KEY = "notifications";
+const LOCATION_STATUS_KEY = "use_location_status";
 
 export const getTemperatureUnit = () =>
   localStorage.getItem(TEMPERATURE_KEY) || "C";
@@ -131,4 +132,32 @@ export const sendWeatherNotification = (title, body, iconUrl = "") => {
       icon: iconUrl || "default-icon.png",
     });
   }
+};
+
+export const getLocationStatus = () =>
+  localStorage.getItem(LOCATION_STATUS_KEY) === "true";
+
+export const setLocationStatus = (status) =>
+  localStorage.setItem(LOCATION_STATUS_KEY, status ? "true" : "false");
+
+export const getUserLocation = (onSuccess, onError) => {
+  if (!navigator.geolocation) {
+    alert("Your browser does not support Geolocation.");
+    if (typeof onError === "function") onError();
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      if (typeof onSuccess === "function") onSuccess({ lat, lon });
+    },
+    (error) => {
+      alert(
+        "Unable ot retrieve your location! Please check that your GPS is turned on.",
+      );
+      if (typeof onError === "function") onError(error);
+    },
+  );
 };

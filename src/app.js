@@ -83,7 +83,7 @@ export const initApp = () => {
     } else if (targetHref === "#history") {
       await updateHistoryUI(handleFavoriteCityClick);
     } else if (targetHref === "#settings") {
-      updateSettingsUI(reRenderCurrentData);
+      updateSettingsUI(reRenderCurrentData, (city) => loadCityData(city));
     }
   });
 
