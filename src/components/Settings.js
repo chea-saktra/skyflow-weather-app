@@ -2,9 +2,11 @@ import { createToggleRow } from "../utils/helpers";
 import {
   getDateFormat,
   getTemperatureUnit,
+  getTimeFormat,
   getWindSpeedUnit,
   setDateFormat,
   setTemperatureUnit,
+  setTimeFormat,
   setWindSpeedUnit,
 } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
@@ -205,6 +207,16 @@ export const updateSettingsUI = (onUnitChange) => {
   optTime24.textContent = "24 Hour";
 
   selectTime.append(optTime12, optTime24);
+
+  selectTime.value = getTimeFormat();
+
+  selectTime.addEventListener("change", (e) => {
+    setTimeFormat(e.target.value);
+    if (typeof onUnitChange === "function") {
+      onUnitChange();
+    }
+  });
+
   rowTime.append(labelTime, selectTime);
   generalGroup.append(rowTime);
 
@@ -292,7 +304,8 @@ export const updateSettingsUI = (onUnitChange) => {
     btnBack.addEventListener("click", () => {
       switchDOMVisibility("#home");
       document.querySelectorAll(".side-menu__link").forEach((link) => {
-        if (link.getAttribute("href") === "#home") link.classList.add("is-active");
+        if (link.getAttribute("href") === "#home")
+          link.classList.add("is-active");
         else link.classList.remove("is-active");
       });
     });
@@ -328,16 +341,18 @@ export const updateSettingsUI = (onUnitChange) => {
     });
   });
 
-  settingsPanel.querySelectorAll(".settings-panel__toggle-btn").forEach((group) => {
-    if (group === toggleBtnTemp || group === toggleBtnWind) return;
-    const buttons = group.querySelectorAll(".btn-toggle");
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        buttons.forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
+  settingsPanel
+    .querySelectorAll(".settings-panel__toggle-btn")
+    .forEach((group) => {
+      if (group === toggleBtnTemp || group === toggleBtnWind) return;
+      const buttons = group.querySelectorAll(".btn-toggle");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+        });
       });
     });
-  });
 
   if (window.lucide) window.lucide.createIcons();
 };

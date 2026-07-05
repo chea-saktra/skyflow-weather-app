@@ -1,12 +1,16 @@
 const TEMPERATURE_KEY = "temp_unit";
 const WINDSPEED_KEY = "windspeed_unit";
 const DATE_FORMAT_KEY = "date_format";
+const TIME_FORMAT_KEY = "time_format";
 
-export const getTemperatureUnit = () => localStorage.getItem(TEMPERATURE_KEY) || "C";
+export const getTemperatureUnit = () =>
+  localStorage.getItem(TEMPERATURE_KEY) || "C";
 
-export const setTemperatureUnit = (unit) => localStorage.setItem(TEMPERATURE_KEY, unit);
+export const setTemperatureUnit = (unit) =>
+  localStorage.setItem(TEMPERATURE_KEY, unit);
 
-export const converCelsiusToFahrenheit = (celsius) => Math.round((celsius * 9) / 5 + 32);
+export const converCelsiusToFahrenheit = (celsius) =>
+  Math.round((celsius * 9) / 5 + 32);
 
 export const formatTemperature = (celsiusValue) => {
   const unit = getTemperatureUnit();
@@ -17,9 +21,11 @@ export const formatTemperature = (celsiusValue) => {
   return `${Math.round(celsiusValue)}°C`;
 };
 
-export const getWindSpeedUnit = () => localStorage.getItem(WINDSPEED_KEY) || "kmh";
+export const getWindSpeedUnit = () =>
+  localStorage.getItem(WINDSPEED_KEY) || "kmh";
 
-export const setWindSpeedUnit = (unit) => localStorage.setItem(WINDSPEED_KEY, unit.toLowerCase());
+export const setWindSpeedUnit = (unit) =>
+  localStorage.setItem(WINDSPEED_KEY, unit.toLowerCase());
 
 export const convertMetersPerSecondToMph = (ms) => Math.round(ms * 2.23694);
 
@@ -27,11 +33,20 @@ export const convertMetersPerSecondToKmh = (ms) => Math.round(ms * 3.6);
 
 export const getDateFormat = () => localStorage.getItem(DATE_FORMAT_KEY) || "1";
 
-export const setDateFormat = (format) => localStorage.setItem(DATE_FORMAT_KEY, format);
+export const setDateFormat = (format) =>
+  localStorage.setItem(DATE_FORMAT_KEY, format);
+
+export const getTimeFormat = () =>
+  localStorage.getItem(TIME_FORMAT_KEY) || "12";
+
+export const setTimeFormat = (format) =>
+  localStorage.setItem(TIME_FORMAT_KEY, format);
 
 export const formatDate = (dateInput) => {
   const dateObj = dateInput instanceof Date ? dateInput : new Date(dateInput);
   const dateFormat = getDateFormat();
+  const timeFormat = getTimeFormat();
+  const is12Hour = timeFormat === "12";
 
   if (dateFormat === "2") {
     return new Intl.DateTimeFormat("en-GB", {
@@ -40,7 +55,7 @@ export const formatDate = (dateInput) => {
       year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      hour12: true,
+      hour12: is12Hour,
       timeZone: "UTC",
     })
       .format(dateObj)
@@ -53,7 +68,7 @@ export const formatDate = (dateInput) => {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    hour12: true,
+    hour12: is12Hour,
     timeZone: "UTC",
   })
     .format(dateObj)

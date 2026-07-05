@@ -1,13 +1,24 @@
+import { getTimeFormat } from "./settings";
+
 const HISTORY_KEY = "weather_history";
 
-export const getHistory = () => JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+export const getHistory = () =>
+  JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
 
 const formatHistoryDate = (date) => {
   const now = new Date();
   const yesterday = new Date(now);
   yesterday.setDate(now.getDate() - 1);
 
-  const timeString = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+  const timeFormat = getTimeFormat();
+  const is12Hour = timeFormat === "12";
+
+  const timeString = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: is12Hour,
+  });
+
   if (date.toDateString() === now.toDateString()) {
     return `Today, ${timeString}`;
   } else if (date.toDateString() === yesterday.toDateString()) {
@@ -16,6 +27,7 @@ const formatHistoryDate = (date) => {
     return `${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}, ${timeString}`;
   }
 };
+
 export const addHistoryItem = (weatherData) => {
   const history = getHistory();
   const newItem = {
@@ -28,7 +40,9 @@ export const addHistoryItem = (weatherData) => {
     rawName: weatherData.name,
   };
 
-  const filtered = history.filter((item) => item.rawName.toLowerCase() !== weatherData.name.toLowerCase());
+  const filtered = history.filter(
+    (item) => item.rawName.toLowerCase() !== weatherData.name.toLowerCase(),
+  );
 
   filtered.unshift(newItem);
 
