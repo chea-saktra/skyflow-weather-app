@@ -115,8 +115,10 @@ The project maps clean development separations adhering to explicit component bo
 
 ## 📸 Screenshots
 
+### Light Mode
 ![SkyFlow App PreviewLight](./public/assets/Image/PreviewLight.png)
 
+### Dark Mode
 ![SkyFlow App PreviewDark](./public/assets/Image/PreviewDark.png)
 
 ## 🌐 Live Demo
