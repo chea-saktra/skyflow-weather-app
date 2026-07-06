@@ -46,20 +46,24 @@ Follow these steps to replicate the staging environments locally on your hardwar
 
 1.Extract Workspace Source
 
-````bash
-git clone https://github.com/your-username/skyflow.git
-cd skyflow
+```bash
+git clone https://github.com/chea-saktra/skyflow-weather-app.git
+
 ```
 
+2.Navigate to the project folder
+
 ```bash
- 2. Provision Dependencies
-````
+cd skyflow-weather-app
+```
+
+3.Provision Dependencies
 
 ```bash
 npm install
 ```
 
-3.Setup Runtime Configurations (.env)
+4.Setup Runtime Configurations (.env)
 
 Before running the application, you need to obtain a free API key from OpenWeatherMap.
 
@@ -72,7 +76,7 @@ VITE_WEATHER_API_KEY=your_openweathermap_api_key_goes_here
 VITE_BASE_URL=https://api.openweathermap.org/data/2.5/
 ```
 
-4.Execute Development Services
+5.Execute Development Services
 
 ```bash
 npm run dev
@@ -111,18 +115,15 @@ The project maps clean development separations adhering to explicit component bo
 
 ## 📸 Screenshots
 
-Include application visual previews here to document the multi-language toggles, system views, and layout viewports.
+![SkyFlow App PreviewLight](./public/assets/Image/PreviewLight.png)
 
-- _Home Screen (Glass UI)_
-- _Settings Panel (Preferences)_
-
----
+![SkyFlow App PreviewDark](./public/assets/Image/PreviewDark.png)
 
 ## 🌐 Live Demo
 
 An updated deployment of the latest pipeline configurations can be explored publicly via the link below: 🔗
 
-[Explore SkyFlow Live Deployment](https://your-live-link.com)
+[Explore SkyFlow Live Deployment](https://skyflow-weather-app-zl9g.vercel.app/)
 
 ---
 
