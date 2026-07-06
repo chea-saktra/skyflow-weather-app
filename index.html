@@ -11,33 +11,36 @@
       <!-- SIDE MENU COMPONENT -->
       <aside class="side-menu">
         <nav class="side-menu__nav">
-          <a href="/#home" class="side-menu__logo-link">
-            <img src="/Logo.png" alt="Weather App Logo" class="side-menu__logo" />
+          <a href="#home" class="side-menu__logo-link">
+            <img
+              src="/Logo.png"
+              alt="Weather App Logo"
+              class="side-menu__logo" />
             <span class="side-menu__logo-text">Weather</span>
           </a>
           <ul class="side-menu__list">
             <li class="side-menu__item">
               <a href="#home" class="side-menu__link is-active">
                 <i class="side-menu__icon" data-lucide="home"></i>
-                Home
+                <span class="nav-text"></span>
               </a>
             </li>
             <li class="side-menu__item">
               <a href="#favorites" class="side-menu__link">
                 <i class="side-menu__icon" data-lucide="star"></i>
-                Favorites
+                <span class="nav-text"></span>
               </a>
             </li>
             <li class="side-menu__item">
               <a href="#history" class="side-menu__link">
                 <i class="side-menu__icon" data-lucide="clock"></i>
-                History
+                <span class="nav-text"></span>
               </a>
             </li>
             <li class="side-menu__item">
               <a href="#settings" class="side-menu__link">
                 <i class="side-menu__icon" data-lucide="settings"></i>
-                Settings
+                <span class="nav-text"></span>
               </a>
             </li>
           </ul>
@@ -48,13 +51,19 @@
       <main class="main-content">
         <!-- MOBILE HEADER COMPONENT -->
         <header class="mobile-header">
-          <button id="menu-toggle" class="mobile-header__btn" aria-label="Open Menu">
+          <button
+            id="menu-toggle"
+            class="mobile-header__btn"
+            aria-label="Open Menu">
             <i data-lucide="menu"></i>
           </button>
           <h1 class="mobile-header__location">
             <i data-lucide="map-pin"></i>
           </h1>
-          <button id="fav-toggle" class="mobile-header__btn" aria-label="Add to Favorites">
+          <button
+            id="fav-toggle"
+            class="mobile-header__btn"
+            aria-label="Add to Favorites">
             <i data-lucide="star"></i>
           </button>
         </header>
@@ -63,12 +72,18 @@
         <!-- SEARCH PANEL COMPONENT -->
         <section class="search-panel is-hidden">
           <form class="search-panel__form" role="search">
-            <button type="button" class="search-panel__btn--back" aria-label="Go back">
+            <button
+              type="button"
+              class="search-panel__btn--back"
+              aria-label="Go back">
               <i data-lucide="arrow-left"></i>
             </button>
 
             <div class="search-panel__input-wrapper">
-              <i data-lucide="search" class="search-panel__search-icon" aria-hidden="true"></i>
+              <i
+                data-lucide="search"
+                class="search-panel__search-icon"
+                aria-hidden="true"></i>
 
               <input
                 type="search"
@@ -78,16 +93,16 @@
                 placeholder="Search City..."
                 aria-label="Search City"
                 value="" />
-              <button type="button" class="search-panel__btn--clear" aria-label="Clear search">
+              <button
+                type="button"
+                class="search-panel__btn--clear"
+                aria-label="Clear search">
                 <i data-lucide="circle-x"></i>
               </button>
             </div>
           </form>
 
-          <button class="search-panel__btn--location is-hidden">
-            <i data-lucide="map-pin" class="mobile-header__btn-icon"></i>
-            Use My location
-          </button>
+          <button class="search-panel__btn--location is-hidden"></button>
         </section>
 
         <article class="dashboard-layout">
@@ -104,9 +119,11 @@
                 <p class="current-weather__temperature"></p>
                 <h2 class="current-weather__status"></h2>
               </div>
-              <button id="desktop-fav-btn" class="current-weather__btn--add-fav is-hidden">
+              <button
+                id="desktop-fav-btn"
+                class="current-weather__btn--add-fav is-hidden">
                 <i data-lucide="star" class="fav-icon"></i>
-                <span>Add to Favorites</span>
+                <span></span>
               </button>
             </div>
             <div class="current-weather__visual">
@@ -130,11 +147,12 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     class="weather-details__icon">
-                    <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z" />
+                    <path
+                      d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z" />
                   </svg>
                   <span class="weather-details__humidity"></span>
                 </dd>
-                <dt class="weather-details__label">Humidity</dt>
+                <dt class="weather-details__label"></dt>
               </div>
 
               <div class="weather-details__item">
@@ -156,7 +174,7 @@
                   </svg>
                   <span class="weather-details__wind"></span>
                 </dd>
-                <dt class="weather-details__label">Wind</dt>
+                <dt class="weather-details__label"></dt>
               </div>
 
               <div class="weather-details__item">
@@ -176,27 +194,32 @@
                   </svg>
                   <span class="weather-details__feels-like"></span>
                 </dd>
-                <dt class="weather-details__label">Feels like</dt>
+                <dt class="weather-details__label"></dt>
               </div>
             </dl>
           </section>
-          
         </article>
 
         <!-- FORECAST COMPONENT -->
         <section class="forecast">
-          <h3 class="forecast__title">5-Day Forecast</h3>
+          <h3 class="forecast__title"></h3>
           <ul class="forecast__list"></ul>
         </section>
 
         <!-- FAVORITES PANEL -->
-        <section class="favorites-panel is-hidden" aria-labelledby="favorites-title"></section>
+        <section
+          class="favorites-panel is-hidden"
+          aria-labelledby="favorites-title"></section>
 
         <!-- HISTORY PANEL -->
-        <section class="history-panel" aria-labelledby="history-title"></section>
+        <section
+          class="history-panel"
+          aria-labelledby="history-title"></section>
 
         <!-- SETTINGS PANEL -->
-         <section class="settings-panel" aria-labelledby="settings-title"></section>
+        <section
+          class="settings-panel"
+          aria-labelledby="settings-title"></section>
       </main>
     </div>
 

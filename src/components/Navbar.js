@@ -1,4 +1,4 @@
-import { getUserLocation } from "../utils/settings";
+import { getUserLocation, t } from "../utils/settings";
 
 export const initNavbar = (onSearch) => {
   const searchForm = document.querySelector(".search-panel__form");
@@ -9,6 +9,34 @@ export const initNavbar = (onSearch) => {
   const btnBack = document.querySelector(".search-panel__btn--back");
   const btnClear = document.querySelector(".search-panel__btn--clear");
   const btnUseLocation = document.querySelector(".search-panel__btn--location");
+
+  const updateNavbarLabels = () => {
+    if (searchInput) {
+      searchInput.placeholder = t("searchPlaceholder") || "Search City...";
+      searchInput.setAttribute(
+        "aria-label",
+        t("searchPlaceholder") || "Search City",
+      );
+    }
+
+    if (btnUseLocation) {
+      btnUseLocation.textContent = "";
+      const i = document.createElement("i");
+      i.dataset.lucide = "map-pin";
+      i.classList.add("mobile-header__btn-icon");
+
+      btnUseLocation.append(
+        i,
+        document.createTextNode(t("useLocation") || "Use My locaion"),
+      );
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+  };
+
+  updateNavbarLabels();
+
+  window.reRenderNavbarLabels = updateNavbarLabels;
 
   const toggleSearchMode = (isSearchActive) => {
     if (window.innerWidth >= 600) {
@@ -64,7 +92,8 @@ export const initNavbar = (onSearch) => {
 
       btnUseLocation.disabled = true;
       const originalText = btnUseLocation.innerHTML;
-      btnUseLocation.textContent = "Loading location...";
+      btnUseLocation.textContent =
+        t("loadingLocation") || "Loading location...";
 
       getUserLocation(
         (coords) => {

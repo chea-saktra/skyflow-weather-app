@@ -7,6 +7,7 @@ import {
   formatTemperature,
   getTemperatureUnit,
   getWindSpeedUnit,
+  t,
 } from "../utils/settings";
 
 export const updateCurrentWeatherUI = (current) => {
@@ -19,6 +20,18 @@ export const updateCurrentWeatherUI = (current) => {
   const humidityText = document.querySelector(".weather-details__humidity");
   const windText = document.querySelector(".weather-details__wind");
   const feelsLikeText = document.querySelector(".weather-details__feels-like");
+  const labels = document.querySelectorAll(".weather-details__label");
+  const forecastTitle = document.querySelector(".forecast__title");
+
+  if (labels.length >= 3) {
+    labels[0].textContent = t("humidity");
+    labels[1].textContent = t("windSpeed");
+    labels[2].textContent = t("feelsLike");
+  }
+
+  if (forecastTitle) {
+    forecastTitle.textContent = t("forecast5Day") || "5-Day Forecast";
+  }
 
   const appendMapPin = (element) => {
     if (!element) return;
@@ -52,8 +65,17 @@ export const updateCurrentWeatherUI = (current) => {
 
   if (currentStatus) {
     const statusText = current.weather[0].description;
-    currentStatus.textContent =
-      statusText.at(0).toUpperCase() + statusText.slice(1);
+
+    const translationKey = statusText.toLowerCase().replace(/ /g, "_");
+
+    const translatedStatus = t(translationKey);
+
+    if (translatedStatus !== translationKey) {
+      currentStatus.textContent = translatedStatus;
+    } else {
+      currentStatus.textContent =
+        statusText.at(0).toUpperCase() + statusText.slice(1);
+    }
   }
 
   if (currentIcon) {
@@ -102,10 +124,13 @@ export const updateFavButtonUl = (isFav) => {
     const desktopText = desktopFavToggleBtn.querySelector("span");
     if (isFav) {
       desktopFavToggleBtn.classList.add("is-favorite");
-      if (desktopText) desktopText.textContent = "Remove from Favorites";
+      if (desktopText)
+        desktopText.textContent =
+          t("removeFromFavorites") || "Remove from Favorites";
     } else {
       desktopFavToggleBtn.classList.remove("is-favorite");
-      if (desktopText) desktopText.textContent = "Add to Favorites";
+      if (desktopText)
+        desktopText.textContent = t("addToFavorites") || "Add to Favorites";
     }
   }
 };

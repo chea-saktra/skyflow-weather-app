@@ -5,6 +5,7 @@ import { switchDOMVisibility } from "./Sidebar";
 import {
   convertCelsiusToFahrenheit,
   getTemperatureUnit,
+  t,
 } from "../utils/settings";
 
 export const updateFavoritesUI = async (onCityClick) => {
@@ -37,11 +38,11 @@ export const updateFavoritesUI = async (onCityClick) => {
   });
 
   titleHeader.classList.add("favorites-panel__title");
-  titleHeader.textContent = "My Favorites";
+  titleHeader.textContent = t("favorites") || "My Favorites";
 
   btnAdd.classList.add("favorites-panel__btn--add-city");
 
-  btnAdd.textContent = "Add City";
+  btnAdd.textContent = t("addCity") || "Add City";
   btnAdd.addEventListener("click", () => {
     switchDOMVisibility("#home");
 
@@ -60,6 +61,14 @@ export const updateFavoritesUI = async (onCityClick) => {
   favoritesPanel.append(header);
 
   if (favorites.length === 0) {
+    const noFavsMessage = document.createElement("p");
+    noFavsMessage.classList.add("favorites-panel__empty-message");
+    noFavsMessage.textContent =
+      t("noFavorites") || "No favorite cities added yet.";
+    noFavsMessage.style.textAlign = "center";
+    noFavsMessage.style.padding = "2rem";
+    noFavsMessage.style.opacity = "0.6";
+    favoritesPanel.append(noFavsMessage);
     return;
   }
 

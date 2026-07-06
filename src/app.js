@@ -16,10 +16,24 @@ import {
   formatTemperature,
   getNotificationsStatus,
   sendWeatherNotification,
+  t,
 } from "./utils/settings";
 import { getIconUrl } from "./utils/helpers";
 
 let currentCityName = "Phnom Penh";
+const updateSidebarLabels = () => {
+  document.querySelectorAll(".side-menu__link").forEach((link) => {
+    const href = link.getAttribute("href");
+    const span = link.querySelector(".nav-text");
+    if (span) {
+      if (href === "#home") span.textContent = t("home") || "Home";
+      if (href === "#favorites")
+        span.textContent = t("favorites") || "Favorites";
+      if (href === "#history") span.textContent = t("history") || "History";
+      if (href === "#settings") span.textContent = t("settings") || "Settings";
+    }
+  });
+};
 
 const handleFavoriteCityClick = (clickedCity) => {
   switchDOMVisibility("#home");
@@ -32,12 +46,19 @@ const handleFavoriteCityClick = (clickedCity) => {
 };
 
 const reRenderCurrentData = () => {
+  updateSidebarLabels();
   if (window.currentWeatherData) {
     updateCurrentWeatherUI(window.currentWeatherData.current);
     updateForecastUI(
       window.currentWeatherData.forecast,
       window.currentWeatherData.current.dt,
     );
+    updateFavButtonUl(isFavorite(currentCityName));
+    
+    if (typeof window.reRenderNavbarLabels === "function")
+      window.reRenderNavbarLabels();
+
+    if (window.lucide) window.lucide.createIcons();
   }
 };
 
@@ -72,7 +93,7 @@ export const loadCityData = async (city) => {
 
 export const initApp = () => {
   applyThemeUI();
-
+  updateSidebarLabels();
   initNavbar((city) => loadCityData(city));
 
   initSidebar(async (targetHref) => {

@@ -1,3 +1,5 @@
+import { translations } from "./translations";
+
 const TEMPERATURE_KEY = "temp_unit";
 const WINDSPEED_KEY = "windspeed_unit";
 const DATE_FORMAT_KEY = "date_format";
@@ -5,6 +7,7 @@ const TIME_FORMAT_KEY = "time_format";
 const THEME_KEY = "theme";
 const NOTIFICATIONS_KEY = "notifications";
 const LOCATION_STATUS_KEY = "use_location_status";
+const LANGUAGE_KEY = "language";
 
 export const getTemperatureUnit = () =>
   localStorage.getItem(TEMPERATURE_KEY) || "C";
@@ -160,4 +163,14 @@ export const getUserLocation = (onSuccess, onError) => {
       if (typeof onError === "function") onError(error);
     },
   );
+};
+
+export const getLanguage = () => localStorage.getItem(LANGUAGE_KEY) || "en";
+
+export const setLanguage = (lang) => localStorage.setItem(LANGUAGE_KEY, lang);
+
+export const t = (key) => {
+  const currentLang = getLanguage();
+
+  return translations[currentLang]?.[key] || translations["en"]?.[key] || key;
 };

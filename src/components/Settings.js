@@ -1,6 +1,7 @@
 import {
   applyThemeUI,
   getDateFormat,
+  getLanguage,
   getLocationStatus,
   getNotificationsStatus,
   getTemperatureUnit,
@@ -9,12 +10,14 @@ import {
   getUserLocation,
   getWindSpeedUnit,
   setDateFormat,
+  setLanguage,
   setLocationStatus,
   setNotificationsStatus,
   setTemperatureUnit,
   setTheme,
   setTimeFormat,
   setWindSpeedUnit,
+  t,
 } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
@@ -62,7 +65,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   const mobileTitle = document.createElement("h1");
   mobileTitle.id = "settings-title";
   mobileTitle.classList.add("settings-panel__title");
-  mobileTitle.textContent = "Settings";
+  mobileTitle.textContent = t("settings") || "Settings";
 
   const spacer = document.createElement("div");
   spacer.style.width = "2.5rem";
@@ -76,7 +79,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
 
   const desktopTitle = document.createElement("h2");
   desktopTitle.classList.add("settings-panel__title-desktop");
-  desktopTitle.textContent = "Settings";
+  desktopTitle.textContent = t("settings") || "Settings";
 
   desktopHeader.append(desktopTitle);
   settingsPanel.append(desktopHeader);
@@ -95,7 +98,10 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   const generalIcon = document.createElement("i");
   generalIcon.setAttribute("data-lucide", "settings");
 
-  generalTitle.append(generalIcon, document.createTextNode(" General"));
+  generalTitle.append(
+    generalIcon,
+    document.createTextNode(` ${t("preferences") || "General"} `),
+  );
   generalCard.append(generalTitle);
 
   const generalGroup = document.createElement("div");
@@ -106,7 +112,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   rowTemp.classList.add("settings-panel__row");
 
   const labelTemp = document.createElement("label");
-  labelTemp.textContent = "Temperature Unit";
+  labelTemp.textContent = t("tempUnit") || "Temperature Unit";
 
   const toggleBtnTemp = document.createElement("div");
   toggleBtnTemp.classList.add("settings-panel__toggle-btn");
@@ -135,7 +141,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   rowWind.classList.add("settings-panel__row");
 
   const labelWind = document.createElement("label");
-  labelWind.textContent = "Wind Speed Unit";
+  labelWind.textContent = t("windUnit") || "Wind Speed Unit";
 
   const toggleBtnWind = document.createElement("div");
   toggleBtnWind.classList.add("settings-panel__toggle-btn");
@@ -166,7 +172,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
 
   const labelLang = document.createElement("label");
   labelLang.setAttribute("for", "settings-lang");
-  labelLang.textContent = "Language";
+  labelLang.textContent = t("language") || "Language";
 
   const selectLang = document.createElement("select");
   selectLang.id = "settings-lang";
@@ -182,6 +188,17 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
 
   selectLang.append(optEn, optKh);
   rowLang.append(labelLang, selectLang);
+
+  selectLang.value = getLanguage();
+
+  selectLang.addEventListener("change", (e) => {
+    setLanguage(e.target.value);
+    if (typeof onUnitChange === "function") {
+      onUnitChange();
+    }
+    updateSettingsUI(onUnitChange, onSearch);
+  });
+
   generalGroup.append(rowLang);
 
   //   Row: Date Format
@@ -190,7 +207,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
 
   const labelDate = document.createElement("label");
   labelDate.setAttribute("for", "setting-date");
-  labelDate.textContent = "Date Format";
+  labelDate.textContent = t("dateFormat") || "Date Format";
 
   const selectDate = document.createElement("select");
   selectDate.id = "setting-date";
@@ -223,7 +240,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
 
   const labelTime = document.createElement("label");
   labelTime.setAttribute("for", "setting-time");
-  labelTime.textContent = "Time Format";
+  labelTime.textContent = t("timeFormat") || "Time Format";
 
   const selectTime = document.createElement("select");
   selectTime.id = "setting-time";
@@ -268,7 +285,10 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   const prefsIcon = document.createElement("i");
   prefsIcon.setAttribute("data-lucide", "sliders");
 
-  prefsTitle.append(prefsIcon, document.createTextNode(" Preferences"));
+  prefsTitle.append(
+    prefsIcon,
+    document.createTextNode(` ${t("theme") || "Preferences"}`),
+  );
   perfsCard.append(prefsTitle);
 
   const prefsGroup = document.createElement("div");
@@ -279,9 +299,17 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   const isNotification = getNotificationsStatus();
 
   prefsGroup.append(
-    createToggleRow("Dark Mode", "toggle-dark-mode", isDark),
-    createToggleRow("Use Location", "toggle-use-location", inLocation),
-    createToggleRow("Notifications", "toggle-notifications", isNotification),
+    createToggleRow(t("dark") || "Dark Mode", "toggle-dark-mode", isDark),
+    createToggleRow(
+      t("useLocation") || "Use Location",
+      "toggle-use-location",
+      inLocation,
+    ),
+    createToggleRow(
+      t("notifications") || "Notifications",
+      "toggle-notifications",
+      isNotification,
+    ),
   );
   perfsCard.append(prefsGroup);
   rightColumn.append(perfsCard);
@@ -296,7 +324,10 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   const aboutIcon = document.createElement("i");
   aboutIcon.setAttribute("data-lucide", "info");
 
-  aboutTitle.append(aboutIcon, document.createTextNode(" About App"));
+  aboutTitle.append(
+    aboutIcon,
+    document.createTextNode(` ${t("aboutApp") || "About App"}`),
+  );
   aboutCard.append(aboutTitle);
 
   const aboutGroup = document.createElement("div");
@@ -306,7 +337,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   rowVersion.classList.add("settings-panel__row");
 
   const spanVersionText = document.createElement("span");
-  spanVersionText.textContent = "App Version";
+  spanVersionText.textContent = t("appVersion") || "App Version";
 
   const spanVersionValue = document.createElement("span");
   spanVersionValue.classList.add("settings-panel__value");
@@ -321,7 +352,7 @@ export const updateSettingsUI = (onUnitChange, onSearch) => {
   btnUpdate.classList.add("settings-panel__row", "settings-panel__row--btn");
 
   const spanUpdateText = document.createElement("span");
-  spanUpdateText.textContent = "Check for Updates";
+  spanUpdateText.textContent = t("checkForUpdates") || "Check for Updates";
 
   const updateChevron = document.createElement("i");
   updateChevron.setAttribute("data-lucide", "chevron-right");

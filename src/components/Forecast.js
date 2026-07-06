@@ -1,6 +1,7 @@
 import { getIconUrl } from "../utils/helpers";
 import {
   convertCelsiusToFahrenheit,
+  getLanguage,
   getTemperatureUnit,
 } from "../utils/settings";
 
@@ -25,6 +26,8 @@ export const updateForecastUI = (forecast, currentDt) => {
 
   const unit = getTemperatureUnit().toUpperCase();
 
+  const currentLang = getLanguage();
+
   Object.keys(daysGroup)
     .slice(0, 5)
     .forEach((dateKey) => {
@@ -42,9 +45,21 @@ export const updateForecastUI = (forecast, currentDt) => {
       });
 
       const dateObj = new Date(representativeItem.dt * 1000);
-      const weekday = dateObj.toLocaleDateString("en-US", { weekday: "short" });
-      const day = dateObj.toLocaleDateString("en-US", { day: "numeric" });
-      const formattedDay = `${weekday} ${day}`;
+
+      let formattedDay = "";
+      if (currentLang === "kh") {
+        const weekday = dateObj.toLocaleDateString("km-KH", {
+          weekday: "long",
+        });
+        const day = dateObj.toLocaleDateString("km-KH", { day: "numeric" });
+        formattedDay = `${weekday} ${day}`;
+      } else {
+        const weekday = dateObj.toLocaleDateString("en-US", {
+          weekday: "short",
+        });
+        const day = dateObj.toLocaleDateString("en-US", { day: "numeric" });
+        formattedDay = `${weekday} ${day}`;
+      }
 
       const li = document.createElement("li");
       const time = document.createElement("time");

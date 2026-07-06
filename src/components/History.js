@@ -7,6 +7,7 @@ import {
 import {
   convertCelsiusToFahrenheit,
   getTemperatureUnit,
+  t,
 } from "../utils/settings";
 import { switchDOMVisibility } from "./Sidebar";
 
@@ -24,7 +25,12 @@ const bindHeaderEvents = (panel, onCityClick) => {
   }
 
   const clearAllAciton = () => {
-    if (confirm("Are you sure you want to clear all search history?")) {
+    if (
+      confirm(
+        t("clearHistoryConfirm") ||
+          "Are you sure you want to clear all search history?",
+      )
+    ) {
       clearAllHistory();
       updateHistoryUI(onCityClick);
     }
@@ -93,11 +99,11 @@ export const updateHistoryUI = (onCityClick) => {
 
   const titleMobile = document.createElement("h1");
   titleMobile.classList.add("history-panel__title-mobile");
-  titleMobile.textContent = "Search History";
+  titleMobile.textContent = t("history") || "Search History";
 
   const btnClear = document.createElement("button");
   btnClear.classList.add("history-panel__btn--clear-mobile");
-  btnClear.textContent = "Clear";
+  btnClear.textContent = t("clear") || "Clear";
 
   btnBack.append(backIcon);
   mobileHeader.append(btnBack, titleMobile, btnClear);
@@ -108,11 +114,11 @@ export const updateHistoryUI = (onCityClick) => {
 
   const titleDesktop = document.createElement("h2");
   titleDesktop.classList.add("history-panel__title-desktop");
-  titleDesktop.textContent = "Search History";
+  titleDesktop.textContent = t("history") || "Search History";
 
   const btnCleardesktop = document.createElement("button");
   btnCleardesktop.classList.add("history-panel__btn--clear-desktop");
-  btnCleardesktop.textContent = "Clear History";
+  btnCleardesktop.textContent = t("clearHistory") || "Clear History";
 
   desktopHeader.append(titleDesktop, btnCleardesktop);
   historyPanel.append(desktopHeader);
@@ -132,7 +138,7 @@ export const updateHistoryUI = (onCityClick) => {
   const searchInput = document.createElement("input");
   searchInput.type = "search";
   searchInput.classList.add("history-filter-input");
-  searchInput.placeholder = "Search history...";
+  searchInput.placeholder = t("searchPlaceholder") || "Search history...";
 
   searchWrapper.append(searchIcon, searchInput);
   mobileSearchForm.append(searchWrapper);
@@ -142,7 +148,7 @@ export const updateHistoryUI = (onCityClick) => {
     const noHistory = document.createElement("div");
     noHistory.classList.add("history-panel__empty");
     noHistory.setAttribute("role", "status");
-    noHistory.textContent = "No search history found.";
+    noHistory.textContent = t("noHistory") || "No search history found.";
     historyPanel.append(noHistory);
     bindHeaderEvents(historyPanel, onCityClick);
     if (window.lucide) window.lucide.createIcons();
@@ -158,12 +164,19 @@ export const updateHistoryUI = (onCityClick) => {
   const thead = document.createElement("thead");
   const thr = document.createElement("tr");
 
-  const headers = ["Date/Time", "City", "Condition", "Temp", "Action"];
+  const headerKeys = [
+    "dateTimeLabel",
+    "cityLabel",
+    "conditionLabel",
+    "tempLabel",
+    "actionLabel",
+  ];
+  const defaultHeaders = ["Date/Time", "City", "Condition", "Temp", "Action"];
 
-  headers.forEach((text) => {
+  headerKeys.forEach((key, index) => {
     const th = document.createElement("th");
     th.setAttribute("scope", "col");
-    th.textContent = text;
+    th.textContent = t(key) || defaultHeaders[index];
     thr.append(th);
   });
   thead.append(thr);
@@ -202,7 +215,7 @@ export const updateHistoryUI = (onCityClick) => {
     tr.append(tdCity);
 
     const tdCondition = document.createElement("td");
-    tdCondition.textContent = item.condition;
+    tdCondition.textContent = t(item.condition.toLowerCase()) || item.condition;
     tr.append(tdCondition);
 
     const tdTemp = document.createElement("td");
