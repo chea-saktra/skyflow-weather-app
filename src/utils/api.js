@@ -1,5 +1,5 @@
-const API_KEY = "1b5ba74e89caa4d7c2a8b7379579ce31";
-const BASE_URL = "https://api.openweathermap.org/data/2.5/";
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+const BASE_URL = import.meta.env.VITE_VASE_URL;
 
 export const fetchWeatherData = async (query) => {
   try {

@@ -1,6 +1,18 @@
 {
   "name": "weather-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "SkyFlow - A beautiful real-time weather forecast web application built with Vite and Glassmorphism UI.",
+  "main": "index.html",
+  "keywords": [
+    "weather",
+    "forecast",
+    "vite",
+    "frontend",
+    "glassmorphism",
+    "spa"
+  ],
+  "author": "Chea Saktra",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "scripts": {

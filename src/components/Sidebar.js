@@ -42,7 +42,7 @@ export const initSidebar = (onNavigate) => {
 };
 
 export const switchDOMVisibility = (targetHref) => {
-  const mainContent = document.querySelector("main");
+  const bodyContent = document.querySelector("body");
   const mobileHeader = document.querySelector(".mobile-header");
   const currentWeather = document.querySelector(".current-weather");
   const weatherDetails = document.querySelector(".weather-details");
@@ -53,11 +53,11 @@ export const switchDOMVisibility = (targetHref) => {
   const historyPanel = document.querySelector(".history-panel");
   const settingsPanel = document.querySelector(".settings-panel");
 
-  if (mainContent) {
+  if (bodyContent) {
     if (targetHref === "#home") {
-      mainContent.classList.remove("has-home-bg");
+      bodyContent.classList.remove("has-home-bg");
     } else {
-      mainContent.classList.add("has-home-bg");
+      bodyContent.classList.add("has-home-bg");
     }
   }
 
