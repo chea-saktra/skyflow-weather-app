@@ -6,10 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>SkyFlow | Real-Time Weather Forecast</title>
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/favicon/favicon-96x96.webp"
+      sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.webp" />
     <meta name="apple-mobile-web-app-title" content="SkyFlow" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
     <meta
@@ -25,7 +32,7 @@
     <meta
       property="og:description"
       content="Get real-time weather updates, accurate 5-day forecasts, and track your favorite cities globally." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="/og-image.webp" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta
       property="twitter:title"
@@ -41,7 +48,9 @@
         <nav class="side-menu__nav">
           <a href="#home" class="side-menu__logo-link">
             <img
-              src="/Logo.png"
+              src="/Logo.webp"
+              width="40"
+              height="40"
               alt="Weather App Logo"
               class="side-menu__logo" />
             <span class="side-menu__logo-text">Weather</span>
@@ -155,7 +164,13 @@
               </button>
             </div>
             <div class="current-weather__visual">
-              <img src="" alt="" class="current-weather__img" />
+              <img
+                src="/public/assets/weather-icons/Sunny.webp"
+                alt="Sunny"
+                fetchpriority="high"
+                width="150"
+                height="150"
+                class="current-weather__img" />
             </div>
           </section>
 
@@ -251,10 +266,7 @@
       </main>
     </div>
 
-    <script type="module" src="/src/main.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <script type="module" src="/src/main.js" defer></script>
   </body>
 </html>

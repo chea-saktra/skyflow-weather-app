@@ -54,7 +54,7 @@ const reRenderCurrentData = () => {
       window.currentWeatherData.current.dt,
     );
     updateFavButtonUl(isFavorite(currentCityName));
-    
+
     if (typeof window.reRenderNavbarLabels === "function")
       window.reRenderNavbarLabels();
 
@@ -139,4 +139,8 @@ export const initApp = () => {
     });
   }
   loadCityData(currentCityName);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.lucide) window.lucide.createIcons();
+  });
 };
