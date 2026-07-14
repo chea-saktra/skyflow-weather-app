@@ -99,8 +99,34 @@
   margin-right: 0.5rem;
 }
 
+.favorites-panel__empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  background-color: var(--card-bg);
+  border: 1px dashed var(--card-border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  font-size: calc(var(--font-body) * 1.05);
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--card-shadow);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.favorites-panel__empty-message::before {
+  content: "📍"; 
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  filter: grayscale(0.2);
+  opacity: 0.8;
+}
+
 @media (min-width: 37.5rem) {
-  
   .favorites-panel__btn--back {
     display: none;
   }
@@ -119,4 +145,3 @@
     backdrop-filter: blur(10px);
   }
 }
-

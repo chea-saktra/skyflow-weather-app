@@ -65,10 +65,8 @@ export const updateFavoritesUI = async (onCityClick) => {
     noFavsMessage.classList.add("favorites-panel__empty-message");
     noFavsMessage.textContent =
       t("noFavorites") || "No favorite cities added yet.";
-    noFavsMessage.style.textAlign = "center";
-    noFavsMessage.style.padding = "2rem";
-    noFavsMessage.style.opacity = "0.6";
     favoritesPanel.append(noFavsMessage);
+    if (window.lucide) window.lucide.createIcons();
     return;
   }
 
